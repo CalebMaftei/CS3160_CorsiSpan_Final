@@ -16,7 +16,7 @@ namespace cmaftei_Corsi_Span
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+            Application.Run(new Corsi_Span());
         }
     }
 }

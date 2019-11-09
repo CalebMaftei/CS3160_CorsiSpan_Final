@@ -46,14 +46,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Admin.cs" />
+    <Compile Include="Block.cs" />
     <Compile Include="Corsi_Span.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Corsi_Span.Designer.cs">
       <DependentUpon>Corsi_Span.cs</DependentUpon>
     </Compile>
+    <Compile Include="Encrypt.cs" />
+    <Compile Include="Player.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Scoreboard.cs" />
+    <Compile Include="Sequence.cs" />
+    <Compile Include="Tracker.cs" />
+    <Compile Include="User.cs" />
     <EmbeddedResource Include="Corsi_Span.resx">
       <DependentUpon>Corsi_Span.cs</DependentUpon>
     </EmbeddedResource>

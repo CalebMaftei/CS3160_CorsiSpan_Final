@@ -37,12 +37,15 @@
             this.label_usernamePrompt = new System.Windows.Forms.Label();
             this.label_Title = new System.Windows.Forms.Label();
             this.panel_SignUp = new System.Windows.Forms.Panel();
-            this.textBox6 = new System.Windows.Forms.TextBox();
-            this.textBox5 = new System.Windows.Forms.TextBox();
-            this.textBox4 = new System.Windows.Forms.TextBox();
-            this.textBox3 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.button_signUp_back = new System.Windows.Forms.Button();
+            this.button_signUp_finish = new System.Windows.Forms.Button();
+            this.dateTimePicker_SignUp_DOB = new System.Windows.Forms.DateTimePicker();
+            this.textBox_signUp_Diagnosis = new System.Windows.Forms.TextBox();
+            this.textBox_signUp_County = new System.Windows.Forms.TextBox();
+            this.textBox_signUp_State = new System.Windows.Forms.TextBox();
+            this.textBox_signUp_City = new System.Windows.Forms.TextBox();
+            this.textBox_signUp_Password = new System.Windows.Forms.TextBox();
+            this.textBox_signUp_Username = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -51,8 +54,6 @@
             this.label_signUp_Password = new System.Windows.Forms.Label();
             this.label_signUp_User = new System.Windows.Forms.Label();
             this.label_SignUpTitle = new System.Windows.Forms.Label();
-            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
-            this.button_signUp_finish = new System.Windows.Forms.Button();
             this.panel_TitleScreen.SuspendLayout();
             this.panel_SignUp.SuspendLayout();
             this.SuspendLayout();
@@ -83,6 +84,7 @@
             this.button_signUp.TabIndex = 6;
             this.button_signUp.Text = "Sign Up";
             this.button_signUp.UseVisualStyleBackColor = false;
+            this.button_signUp.Click += new System.EventHandler(this.button_signUp_Click);
             // 
             // button_login
             // 
@@ -95,7 +97,6 @@
             this.button_login.TabIndex = 5;
             this.button_login.Text = "Login";
             this.button_login.UseVisualStyleBackColor = false;
-            this.button_login.Click += new System.EventHandler(this.button_login_Click);
             // 
             // textBox_passwordEntry
             // 
@@ -153,14 +154,15 @@
             // panel_SignUp
             // 
             this.panel_SignUp.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.panel_SignUp.Controls.Add(this.button_signUp_back);
             this.panel_SignUp.Controls.Add(this.button_signUp_finish);
-            this.panel_SignUp.Controls.Add(this.dateTimePicker1);
-            this.panel_SignUp.Controls.Add(this.textBox6);
-            this.panel_SignUp.Controls.Add(this.textBox5);
-            this.panel_SignUp.Controls.Add(this.textBox4);
-            this.panel_SignUp.Controls.Add(this.textBox3);
-            this.panel_SignUp.Controls.Add(this.textBox2);
-            this.panel_SignUp.Controls.Add(this.textBox1);
+            this.panel_SignUp.Controls.Add(this.dateTimePicker_SignUp_DOB);
+            this.panel_SignUp.Controls.Add(this.textBox_signUp_Diagnosis);
+            this.panel_SignUp.Controls.Add(this.textBox_signUp_County);
+            this.panel_SignUp.Controls.Add(this.textBox_signUp_State);
+            this.panel_SignUp.Controls.Add(this.textBox_signUp_City);
+            this.panel_SignUp.Controls.Add(this.textBox_signUp_Password);
+            this.panel_SignUp.Controls.Add(this.textBox_signUp_Username);
             this.panel_SignUp.Controls.Add(this.label4);
             this.panel_SignUp.Controls.Add(this.label3);
             this.panel_SignUp.Controls.Add(this.label2);
@@ -174,53 +176,94 @@
             this.panel_SignUp.Size = new System.Drawing.Size(1291, 693);
             this.panel_SignUp.TabIndex = 2;
             // 
-            // textBox6
+            // button_signUp_back
             // 
-            this.textBox6.Font = new System.Drawing.Font("Modern No. 20", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox6.Location = new System.Drawing.Point(417, 508);
-            this.textBox6.Name = "textBox6";
-            this.textBox6.Size = new System.Drawing.Size(575, 37);
-            this.textBox6.TabIndex = 15;
+            this.button_signUp_back.BackColor = System.Drawing.Color.BurlyWood;
+            this.button_signUp_back.Font = new System.Drawing.Font("Modern No. 20", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button_signUp_back.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.button_signUp_back.Location = new System.Drawing.Point(28, 12);
+            this.button_signUp_back.Name = "button_signUp_back";
+            this.button_signUp_back.Size = new System.Drawing.Size(139, 86);
+            this.button_signUp_back.TabIndex = 18;
+            this.button_signUp_back.Text = "Back to Sign In";
+            this.button_signUp_back.UseVisualStyleBackColor = false;
+            this.button_signUp_back.Click += new System.EventHandler(this.button_signUp_back_Click);
             // 
-            // textBox5
+            // button_signUp_finish
             // 
-            this.textBox5.Font = new System.Drawing.Font("Modern No. 20", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox5.Location = new System.Drawing.Point(417, 448);
-            this.textBox5.Name = "textBox5";
-            this.textBox5.Size = new System.Drawing.Size(575, 37);
-            this.textBox5.TabIndex = 14;
+            this.button_signUp_finish.BackColor = System.Drawing.Color.BurlyWood;
+            this.button_signUp_finish.Font = new System.Drawing.Font("Modern No. 20", 28F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button_signUp_finish.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.button_signUp_finish.Location = new System.Drawing.Point(439, 582);
+            this.button_signUp_finish.Name = "button_signUp_finish";
+            this.button_signUp_finish.Size = new System.Drawing.Size(346, 77);
+            this.button_signUp_finish.TabIndex = 17;
+            this.button_signUp_finish.Text = "Sign up!";
+            this.button_signUp_finish.UseVisualStyleBackColor = false;
+            this.button_signUp_finish.Click += new System.EventHandler(this.button_signUp_finish_Click);
             // 
-            // textBox4
+            // dateTimePicker_SignUp_DOB
             // 
-            this.textBox4.Font = new System.Drawing.Font("Modern No. 20", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox4.Location = new System.Drawing.Point(417, 388);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(575, 37);
-            this.textBox4.TabIndex = 13;
+            this.dateTimePicker_SignUp_DOB.CalendarForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.dateTimePicker_SignUp_DOB.Font = new System.Drawing.Font("Modern No. 20", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dateTimePicker_SignUp_DOB.Location = new System.Drawing.Point(417, 268);
+            this.dateTimePicker_SignUp_DOB.Name = "dateTimePicker_SignUp_DOB";
+            this.dateTimePicker_SignUp_DOB.Size = new System.Drawing.Size(575, 42);
+            this.dateTimePicker_SignUp_DOB.TabIndex = 16;
             // 
-            // textBox3
+            // textBox_signUp_Diagnosis
             // 
-            this.textBox3.Font = new System.Drawing.Font("Modern No. 20", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox3.Location = new System.Drawing.Point(417, 328);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(575, 37);
-            this.textBox3.TabIndex = 12;
+            this.textBox_signUp_Diagnosis.Font = new System.Drawing.Font("Modern No. 20", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBox_signUp_Diagnosis.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.textBox_signUp_Diagnosis.Location = new System.Drawing.Point(417, 508);
+            this.textBox_signUp_Diagnosis.Name = "textBox_signUp_Diagnosis";
+            this.textBox_signUp_Diagnosis.Size = new System.Drawing.Size(575, 42);
+            this.textBox_signUp_Diagnosis.TabIndex = 15;
             // 
-            // textBox2
+            // textBox_signUp_County
             // 
-            this.textBox2.Font = new System.Drawing.Font("Modern No. 20", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox2.Location = new System.Drawing.Point(417, 208);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(575, 37);
-            this.textBox2.TabIndex = 11;
+            this.textBox_signUp_County.Font = new System.Drawing.Font("Modern No. 20", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBox_signUp_County.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.textBox_signUp_County.Location = new System.Drawing.Point(417, 448);
+            this.textBox_signUp_County.Name = "textBox_signUp_County";
+            this.textBox_signUp_County.Size = new System.Drawing.Size(575, 42);
+            this.textBox_signUp_County.TabIndex = 14;
             // 
-            // textBox1
+            // textBox_signUp_State
             // 
-            this.textBox1.Font = new System.Drawing.Font("Modern No. 20", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox1.Location = new System.Drawing.Point(417, 148);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(575, 37);
-            this.textBox1.TabIndex = 10;
+            this.textBox_signUp_State.Font = new System.Drawing.Font("Modern No. 20", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBox_signUp_State.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.textBox_signUp_State.Location = new System.Drawing.Point(417, 388);
+            this.textBox_signUp_State.Name = "textBox_signUp_State";
+            this.textBox_signUp_State.Size = new System.Drawing.Size(575, 42);
+            this.textBox_signUp_State.TabIndex = 13;
+            // 
+            // textBox_signUp_City
+            // 
+            this.textBox_signUp_City.Font = new System.Drawing.Font("Modern No. 20", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBox_signUp_City.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.textBox_signUp_City.Location = new System.Drawing.Point(417, 328);
+            this.textBox_signUp_City.Name = "textBox_signUp_City";
+            this.textBox_signUp_City.Size = new System.Drawing.Size(575, 42);
+            this.textBox_signUp_City.TabIndex = 12;
+            // 
+            // textBox_signUp_Password
+            // 
+            this.textBox_signUp_Password.Font = new System.Drawing.Font("Modern No. 20", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBox_signUp_Password.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.textBox_signUp_Password.Location = new System.Drawing.Point(417, 208);
+            this.textBox_signUp_Password.Name = "textBox_signUp_Password";
+            this.textBox_signUp_Password.Size = new System.Drawing.Size(575, 42);
+            this.textBox_signUp_Password.TabIndex = 11;
+            // 
+            // textBox_signUp_Username
+            // 
+            this.textBox_signUp_Username.Font = new System.Drawing.Font("Modern No. 20", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBox_signUp_Username.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.textBox_signUp_Username.Location = new System.Drawing.Point(417, 148);
+            this.textBox_signUp_Username.Name = "textBox_signUp_Username";
+            this.textBox_signUp_Username.Size = new System.Drawing.Size(575, 42);
+            this.textBox_signUp_Username.TabIndex = 10;
             // 
             // label4
             // 
@@ -311,26 +354,6 @@
             this.label_SignUpTitle.TabIndex = 0;
             this.label_SignUpTitle.Text = "Sign Up";
             // 
-            // dateTimePicker1
-            // 
-            this.dateTimePicker1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dateTimePicker1.Location = new System.Drawing.Point(417, 268);
-            this.dateTimePicker1.Name = "dateTimePicker1";
-            this.dateTimePicker1.Size = new System.Drawing.Size(575, 39);
-            this.dateTimePicker1.TabIndex = 16;
-            // 
-            // button_signUp_finish
-            // 
-            this.button_signUp_finish.BackColor = System.Drawing.Color.BurlyWood;
-            this.button_signUp_finish.Font = new System.Drawing.Font("Modern No. 20", 28F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button_signUp_finish.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.button_signUp_finish.Location = new System.Drawing.Point(439, 582);
-            this.button_signUp_finish.Name = "button_signUp_finish";
-            this.button_signUp_finish.Size = new System.Drawing.Size(346, 77);
-            this.button_signUp_finish.TabIndex = 17;
-            this.button_signUp_finish.Text = "Sign up!";
-            this.button_signUp_finish.UseVisualStyleBackColor = false;
-            // 
             // Corsi_Span
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
@@ -367,14 +390,15 @@
         private System.Windows.Forms.Label label_SignUp_DOB;
         private System.Windows.Forms.Label label_signUp_Password;
         private System.Windows.Forms.Label label_signUp_User;
-        private System.Windows.Forms.TextBox textBox6;
-        private System.Windows.Forms.TextBox textBox5;
-        private System.Windows.Forms.TextBox textBox4;
-        private System.Windows.Forms.TextBox textBox3;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.DateTimePicker dateTimePicker1;
+        private System.Windows.Forms.TextBox textBox_signUp_Diagnosis;
+        private System.Windows.Forms.TextBox textBox_signUp_County;
+        private System.Windows.Forms.TextBox textBox_signUp_State;
+        private System.Windows.Forms.TextBox textBox_signUp_City;
+        private System.Windows.Forms.TextBox textBox_signUp_Password;
+        private System.Windows.Forms.TextBox textBox_signUp_Username;
+        private System.Windows.Forms.DateTimePicker dateTimePicker_SignUp_DOB;
         private System.Windows.Forms.Button button_signUp_finish;
+        private System.Windows.Forms.Button button_signUp_back;
     }
 }
 

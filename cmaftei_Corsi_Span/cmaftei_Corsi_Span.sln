@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.438
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "cmaftei_Corsi_Span", "cmaftei_Corsi_Span\cmaftei_Corsi_Span.csproj", "{20C6683A-7150-4DE9-AEF7-A3BA86E46339}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{20C6683A-7150-4DE9-AEF7-A3BA86E46339}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{20C6683A-7150-4DE9-AEF7-A3BA86E46339}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{20C6683A-7150-4DE9-AEF7-A3BA86E46339}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{20C6683A-7150-4DE9-AEF7-A3BA86E46339}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {F291843E-F68C-48C7-8B87-FBD500800D18}
+	EndGlobalSection
+EndGlobal

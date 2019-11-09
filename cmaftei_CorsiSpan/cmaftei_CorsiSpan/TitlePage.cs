@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace cmaftei_CorsiSpan
 {
-    public partial class Form1 : Form
+    public partial class TitlePage : Form
     {
-        public Form1()
+        public TitlePage()
         {
             InitializeComponent();
         }

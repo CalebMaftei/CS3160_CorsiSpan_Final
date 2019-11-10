@@ -36,7 +36,7 @@ namespace cmaftei_Corsi_Span
             panel_SignUp.Visible = true;
         }
 
-        //Gateway to game
+        //Gateway to game (NEEDS VALIDATION OR USER AND PASSWORD)
         private void button_login_Click(object sender, EventArgs e)
         {
             //first check: is User and Password filled

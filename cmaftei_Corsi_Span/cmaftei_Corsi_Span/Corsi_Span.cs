@@ -27,6 +27,38 @@ namespace cmaftei_Corsi_Span
             //panel_Admin.Visible = false; //Create this
         }
 
+        /*BUTTONS FOR TITLE PAGE. PURELY FOR UX. **************************************************************************/
+
+        //Controls traffic of panels when a new user comes.
+        private void button_signUp_Click(object sender, EventArgs e)
+        {
+            panel_TitleScreen.Visible = false;
+            panel_SignUp.Visible = true;
+        }
+
+        //Gateway to game
+        private void button_login_Click(object sender, EventArgs e)
+        {
+            //first check: is User and Password filled
+            if(textBox_usernameEntry.Text == "" || textBox_passwordEntry.Text == "")
+            {
+                MessageBox.Show("You are missing either your username or password.\n" +
+                    "please enter both your username and password.");
+            }
+            //Condition to check text files to see if user is a user.
+            //Condition to check text files to see if user matches appropriate password
+            else
+            {
+                //panel_Game.Visible = true;
+                panel_TitleScreen.Visible = false; 
+            }
+        }
+
+        /******************************************************************************************************************/
+
+        // BUTTONS FOR THE SIGN UP PAGE. PURELY FOR UX.*********************************************************************
+
+        //Checks to see if all forms are filled before adding user
         private void button_signUp_finish_Click(object sender, EventArgs e)
         {
             //If any entries are not filled in, then do not continue. Tell user to go back and edit.
@@ -51,12 +83,7 @@ namespace cmaftei_Corsi_Span
             }
         }
 
-        private void button_signUp_Click(object sender, EventArgs e)
-        {
-            panel_TitleScreen.Visible = false;
-            panel_SignUp.Visible = true;
-        }
-
+        //Allows user to go back to title screen without creating a new profile. Wipes any entry data thus far.
         private void button_signUp_back_Click(object sender, EventArgs e)
         {
             panel_TitleScreen.Visible = true;
@@ -68,5 +95,7 @@ namespace cmaftei_Corsi_Span
             textBox_signUp_City.Text = "";
             textBox_signUp_Diagnosis.Text = "";
         }
+
+        //******************************************************************************************************************
     }
 }

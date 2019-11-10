@@ -97,6 +97,7 @@
             this.button_login.TabIndex = 5;
             this.button_login.Text = "Login";
             this.button_login.UseVisualStyleBackColor = false;
+            this.button_login.Click += new System.EventHandler(this.button_login_Click);
             // 
             // textBox_passwordEntry
             // 
@@ -359,8 +360,8 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1238, 691);
-            this.Controls.Add(this.panel_SignUp);
             this.Controls.Add(this.panel_TitleScreen);
+            this.Controls.Add(this.panel_SignUp);
             this.Name = "Corsi_Span";
             this.Text = "Corsi Span";
             this.panel_TitleScreen.ResumeLayout(false);

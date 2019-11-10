@@ -54,8 +54,21 @@
             this.label_signUp_Password = new System.Windows.Forms.Label();
             this.label_signUp_User = new System.Windows.Forms.Label();
             this.label_SignUpTitle = new System.Windows.Forms.Label();
+            this.panel_Game = new System.Windows.Forms.Panel();
+            this.button_game_logout = new System.Windows.Forms.Button();
+            this.button_game_checkMySequence = new System.Windows.Forms.Button();
+            this.button_game_startRound = new System.Windows.Forms.Button();
+            this.button_game_viewUserHistory = new System.Windows.Forms.Button();
+            this.button_game_checkScoreboard = new System.Windows.Forms.Button();
+            this.panel_gameHeader = new System.Windows.Forms.Panel();
+            this.label_game_score = new System.Windows.Forms.Label();
+            this.label_game_mode = new System.Windows.Forms.Label();
+            this.label_game_currentPlayer = new System.Windows.Forms.Label();
+            this.panel_gameBoard = new System.Windows.Forms.Panel();
             this.panel_TitleScreen.SuspendLayout();
             this.panel_SignUp.SuspendLayout();
+            this.panel_Game.SuspendLayout();
+            this.panel_gameHeader.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel_TitleScreen
@@ -68,9 +81,9 @@
             this.panel_TitleScreen.Controls.Add(this.label_passwordPrompt);
             this.panel_TitleScreen.Controls.Add(this.label_usernamePrompt);
             this.panel_TitleScreen.Controls.Add(this.label_Title);
-            this.panel_TitleScreen.Location = new System.Drawing.Point(-1, -3);
+            this.panel_TitleScreen.Location = new System.Drawing.Point(-4, -3);
             this.panel_TitleScreen.Name = "panel_TitleScreen";
-            this.panel_TitleScreen.Size = new System.Drawing.Size(1279, 721);
+            this.panel_TitleScreen.Size = new System.Drawing.Size(1272, 711);
             this.panel_TitleScreen.TabIndex = 0;
             // 
             // button_signUp
@@ -172,9 +185,9 @@
             this.panel_SignUp.Controls.Add(this.label_signUp_Password);
             this.panel_SignUp.Controls.Add(this.label_signUp_User);
             this.panel_SignUp.Controls.Add(this.label_SignUpTitle);
-            this.panel_SignUp.Location = new System.Drawing.Point(-16, 0);
+            this.panel_SignUp.Location = new System.Drawing.Point(-11, 8);
             this.panel_SignUp.Name = "panel_SignUp";
-            this.panel_SignUp.Size = new System.Drawing.Size(1291, 693);
+            this.panel_SignUp.Size = new System.Drawing.Size(1288, 709);
             this.panel_SignUp.TabIndex = 2;
             // 
             // button_signUp_back
@@ -355,11 +368,136 @@
             this.label_SignUpTitle.TabIndex = 0;
             this.label_SignUpTitle.Text = "Sign Up";
             // 
+            // panel_Game
+            // 
+            this.panel_Game.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.panel_Game.Controls.Add(this.button_game_logout);
+            this.panel_Game.Controls.Add(this.button_game_checkMySequence);
+            this.panel_Game.Controls.Add(this.button_game_startRound);
+            this.panel_Game.Controls.Add(this.button_game_viewUserHistory);
+            this.panel_Game.Controls.Add(this.button_game_checkScoreboard);
+            this.panel_Game.Controls.Add(this.panel_gameHeader);
+            this.panel_Game.Controls.Add(this.panel_gameBoard);
+            this.panel_Game.Location = new System.Drawing.Point(-8, -3);
+            this.panel_Game.Name = "panel_Game";
+            this.panel_Game.Size = new System.Drawing.Size(1273, 708);
+            this.panel_Game.TabIndex = 7;
+            // 
+            // button_game_logout
+            // 
+            this.button_game_logout.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.button_game_logout.Font = new System.Drawing.Font("Modern No. 20", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button_game_logout.ForeColor = System.Drawing.Color.Tan;
+            this.button_game_logout.Location = new System.Drawing.Point(20, 629);
+            this.button_game_logout.Name = "button_game_logout";
+            this.button_game_logout.Size = new System.Drawing.Size(304, 53);
+            this.button_game_logout.TabIndex = 8;
+            this.button_game_logout.Text = "Log Out";
+            this.button_game_logout.UseVisualStyleBackColor = false;
+            // 
+            // button_game_checkMySequence
+            // 
+            this.button_game_checkMySequence.BackColor = System.Drawing.Color.BurlyWood;
+            this.button_game_checkMySequence.Font = new System.Drawing.Font("Modern No. 20", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button_game_checkMySequence.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.button_game_checkMySequence.Location = new System.Drawing.Point(25, 295);
+            this.button_game_checkMySequence.Name = "button_game_checkMySequence";
+            this.button_game_checkMySequence.Size = new System.Drawing.Size(299, 47);
+            this.button_game_checkMySequence.TabIndex = 7;
+            this.button_game_checkMySequence.Text = "Check My Sequence";
+            this.button_game_checkMySequence.UseVisualStyleBackColor = false;
+            // 
+            // button_game_startRound
+            // 
+            this.button_game_startRound.BackColor = System.Drawing.Color.BurlyWood;
+            this.button_game_startRound.Font = new System.Drawing.Font("Modern No. 20", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button_game_startRound.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.button_game_startRound.Location = new System.Drawing.Point(25, 222);
+            this.button_game_startRound.Name = "button_game_startRound";
+            this.button_game_startRound.Size = new System.Drawing.Size(299, 53);
+            this.button_game_startRound.TabIndex = 6;
+            this.button_game_startRound.Text = "Start Round";
+            this.button_game_startRound.UseVisualStyleBackColor = false;
+            // 
+            // button_game_viewUserHistory
+            // 
+            this.button_game_viewUserHistory.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.button_game_viewUserHistory.Font = new System.Drawing.Font("Modern No. 20", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button_game_viewUserHistory.ForeColor = System.Drawing.Color.Tan;
+            this.button_game_viewUserHistory.Location = new System.Drawing.Point(25, 148);
+            this.button_game_viewUserHistory.Name = "button_game_viewUserHistory";
+            this.button_game_viewUserHistory.Size = new System.Drawing.Size(299, 53);
+            this.button_game_viewUserHistory.TabIndex = 5;
+            this.button_game_viewUserHistory.Text = "View User History?";
+            this.button_game_viewUserHistory.UseVisualStyleBackColor = false;
+            // 
+            // button_game_checkScoreboard
+            // 
+            this.button_game_checkScoreboard.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.button_game_checkScoreboard.Font = new System.Drawing.Font("Modern No. 20", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button_game_checkScoreboard.ForeColor = System.Drawing.Color.Tan;
+            this.button_game_checkScoreboard.Location = new System.Drawing.Point(25, 72);
+            this.button_game_checkScoreboard.Name = "button_game_checkScoreboard";
+            this.button_game_checkScoreboard.Size = new System.Drawing.Size(299, 53);
+            this.button_game_checkScoreboard.TabIndex = 4;
+            this.button_game_checkScoreboard.Text = "Check Scoreboard?";
+            this.button_game_checkScoreboard.UseVisualStyleBackColor = false;
+            // 
+            // panel_gameHeader
+            // 
+            this.panel_gameHeader.BackColor = System.Drawing.Color.BurlyWood;
+            this.panel_gameHeader.Controls.Add(this.label_game_score);
+            this.panel_gameHeader.Controls.Add(this.label_game_mode);
+            this.panel_gameHeader.Controls.Add(this.label_game_currentPlayer);
+            this.panel_gameHeader.Location = new System.Drawing.Point(1, 1);
+            this.panel_gameHeader.Name = "panel_gameHeader";
+            this.panel_gameHeader.Size = new System.Drawing.Size(1272, 55);
+            this.panel_gameHeader.TabIndex = 3;
+            // 
+            // label_game_score
+            // 
+            this.label_game_score.AutoSize = true;
+            this.label_game_score.Font = new System.Drawing.Font("Modern No. 20", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label_game_score.Location = new System.Drawing.Point(1001, 11);
+            this.label_game_score.Name = "label_game_score";
+            this.label_game_score.Size = new System.Drawing.Size(94, 30);
+            this.label_game_score.TabIndex = 4;
+            this.label_game_score.Text = "Score: ";
+            // 
+            // label_game_mode
+            // 
+            this.label_game_mode.AutoSize = true;
+            this.label_game_mode.Font = new System.Drawing.Font("Modern No. 20", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label_game_mode.Location = new System.Drawing.Point(476, 11);
+            this.label_game_mode.Name = "label_game_mode";
+            this.label_game_mode.Size = new System.Drawing.Size(294, 30);
+            this.label_game_mode.TabIndex = 3;
+            this.label_game_mode.Text = "Game Mode: NORMAL";
+            // 
+            // label_game_currentPlayer
+            // 
+            this.label_game_currentPlayer.AutoSize = true;
+            this.label_game_currentPlayer.Font = new System.Drawing.Font("Modern No. 20", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label_game_currentPlayer.Location = new System.Drawing.Point(19, 11);
+            this.label_game_currentPlayer.Name = "label_game_currentPlayer";
+            this.label_game_currentPlayer.Size = new System.Drawing.Size(219, 30);
+            this.label_game_currentPlayer.TabIndex = 0;
+            this.label_game_currentPlayer.Text = "Current Player : ";
+            // 
+            // panel_gameBoard
+            // 
+            this.panel_gameBoard.BackColor = System.Drawing.Color.Black;
+            this.panel_gameBoard.Location = new System.Drawing.Point(342, 53);
+            this.panel_gameBoard.Name = "panel_gameBoard";
+            this.panel_gameBoard.Size = new System.Drawing.Size(934, 667);
+            this.panel_gameBoard.TabIndex = 2;
+            // 
             // Corsi_Span
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1238, 691);
+            this.Controls.Add(this.panel_Game);
             this.Controls.Add(this.panel_TitleScreen);
             this.Controls.Add(this.panel_SignUp);
             this.Name = "Corsi_Span";
@@ -368,6 +506,9 @@
             this.panel_TitleScreen.PerformLayout();
             this.panel_SignUp.ResumeLayout(false);
             this.panel_SignUp.PerformLayout();
+            this.panel_Game.ResumeLayout(false);
+            this.panel_gameHeader.ResumeLayout(false);
+            this.panel_gameHeader.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -400,6 +541,17 @@
         private System.Windows.Forms.DateTimePicker dateTimePicker_SignUp_DOB;
         private System.Windows.Forms.Button button_signUp_finish;
         private System.Windows.Forms.Button button_signUp_back;
+        private System.Windows.Forms.Panel panel_Game;
+        private System.Windows.Forms.Panel panel_gameBoard;
+        private System.Windows.Forms.Panel panel_gameHeader;
+        private System.Windows.Forms.Button button_game_viewUserHistory;
+        private System.Windows.Forms.Button button_game_checkScoreboard;
+        private System.Windows.Forms.Button button_game_startRound;
+        private System.Windows.Forms.Button button_game_checkMySequence;
+        private System.Windows.Forms.Button button_game_logout;
+        private System.Windows.Forms.Label label_game_currentPlayer;
+        private System.Windows.Forms.Label label_game_mode;
+        private System.Windows.Forms.Label label_game_score;
     }
 }
 

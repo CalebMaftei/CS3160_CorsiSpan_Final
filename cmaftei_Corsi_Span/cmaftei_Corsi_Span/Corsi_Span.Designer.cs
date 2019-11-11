@@ -404,6 +404,7 @@
             this.button_game_logout.TabIndex = 8;
             this.button_game_logout.Text = "Log Out";
             this.button_game_logout.UseVisualStyleBackColor = false;
+            this.button_game_logout.Click += new System.EventHandler(this.button_game_logout_Click);
             // 
             // button_game_checkMySequence
             // 

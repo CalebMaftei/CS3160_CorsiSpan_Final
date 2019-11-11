@@ -152,6 +152,16 @@ namespace cmaftei_Corsi_Span
 
         /******************************************************************************************************************/
 
+        /*BUTTONS FOR GAME PAGE *******************************************************************************************/
+        private void button_game_logout_Click(object sender, EventArgs e)
+        {
+            //Need to save changes for active player if that happened.
+                //Look into replacing text file contents with new contents as there does not exist (check again) a delete
+                //method for stream writer.
+            //Brings Title Panel Back to front. Hide this page. 
+        }
+        /*BUTTONS FOR GAME PAGE *******************************************************************************************/
+
         //On opening the file, view 
         private void LoadPlayers()
         {

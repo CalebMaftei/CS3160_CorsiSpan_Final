@@ -417,6 +417,7 @@
             this.button_game_checkMySequence.TabIndex = 7;
             this.button_game_checkMySequence.Text = "Check My Sequence";
             this.button_game_checkMySequence.UseVisualStyleBackColor = false;
+            this.button_game_checkMySequence.Visible = false;
             // 
             // button_game_startRound
             // 
@@ -441,6 +442,7 @@
             this.button_game_viewUserHistory.TabIndex = 5;
             this.button_game_viewUserHistory.Text = "View User History?";
             this.button_game_viewUserHistory.UseVisualStyleBackColor = false;
+            this.button_game_viewUserHistory.Click += new System.EventHandler(this.button_game_viewUserHistory_Click);
             // 
             // button_game_checkScoreboard
             // 
@@ -453,6 +455,7 @@
             this.button_game_checkScoreboard.TabIndex = 4;
             this.button_game_checkScoreboard.Text = "Check Scoreboard?";
             this.button_game_checkScoreboard.UseVisualStyleBackColor = false;
+            this.button_game_checkScoreboard.Click += new System.EventHandler(this.button_game_checkScoreboard_Click);
             // 
             // panel_gameHeader
             // 
@@ -469,7 +472,7 @@
             // 
             this.label_game_score.AutoSize = true;
             this.label_game_score.Font = new System.Drawing.Font("Modern No. 20", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label_game_score.Location = new System.Drawing.Point(1001, 11);
+            this.label_game_score.Location = new System.Drawing.Point(972, 11);
             this.label_game_score.Name = "label_game_score";
             this.label_game_score.Size = new System.Drawing.Size(94, 30);
             this.label_game_score.TabIndex = 4;
@@ -479,7 +482,7 @@
             // 
             this.label_game_mode.AutoSize = true;
             this.label_game_mode.Font = new System.Drawing.Font("Modern No. 20", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label_game_mode.Location = new System.Drawing.Point(476, 11);
+            this.label_game_mode.Location = new System.Drawing.Point(479, 10);
             this.label_game_mode.Name = "label_game_mode";
             this.label_game_mode.Size = new System.Drawing.Size(294, 30);
             this.label_game_mode.TabIndex = 3;

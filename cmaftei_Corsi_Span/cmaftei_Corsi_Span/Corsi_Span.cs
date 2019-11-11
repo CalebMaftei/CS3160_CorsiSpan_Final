@@ -14,6 +14,8 @@ namespace cmaftei_Corsi_Span
     public partial class Corsi_Span : Form
     {
         List<Player> players = new List<Player>();
+        Scoreboard scoreBoard = new Scoreboard();
+        int currentLevel = 0;
         Player activePlayer;
 
         public Corsi_Span()
@@ -23,16 +25,10 @@ namespace cmaftei_Corsi_Span
             LoadPlayers();
         }
 
-        //Establishes the appropriate flow of each panel.
-        private void panelSetup()
-        {
-            panel_TitleScreen.Visible = true;
-            panel_SignUp.Visible = false;
-            panel_Game.Visible = false;
-            //panel_Admin.Visible = false; //Create this
-        }
-
-        /*BUTTONS FOR TITLE PAGE. PURELY FOR UX. **************************************************************************/
+        /// <summary>
+        /// All Button actions in the following section are used exclusively for the title page.
+        /// </summary>
+        /*****************************************************************************************************************/
 
         //Controls traffic of panels when a new user comes.
         private void button_signUp_Click(object sender, EventArgs e)
@@ -61,27 +57,30 @@ namespace cmaftei_Corsi_Span
             else
             {
                 //Based on the valid user entry, finds it in the list of players.
-                foreach(Player p in players)
+                foreach (Player p in players)
                 {
-                    if(textBox_usernameEntry.Text == p.GetUserName())
+                    if (textBox_usernameEntry.Text.ToLower() == p.GetUserName())
                     {
                         activePlayer = p;
                         break;
                     }
                 }
-
-                //Sets up game state for when user comes into the game page.
                 label_game_currentPlayer.Text = "Current Player: " + activePlayer.GetUserName().ToUpper();
-                label_game_score.Text = "SCORE: " + activePlayer.GetBestScore();
+                label_game_score.Text = "SCORE/LEVEL : " + currentLevel.ToString();
                 label_game_mode.Text = "Game Mode: NORMAL";
+                textBox_usernameEntry.Text = "";
+                textBox_passwordEntry.Text = "";
                 panel_Game.Visible = true;
-                panel_TitleScreen.Visible = false; 
+                panel_TitleScreen.Visible = false;
             }
         }
 
         /******************************************************************************************************************/
 
-        /*BUTTONS FOR THE SIGN UP PAGE. PURELY FOR UX.*********************************************************************/
+        /// <summary>
+        /// All Button actions in the following sections are used exclusively for the Sign Up page.
+        /// </summary>
+        /******************************************************************************************************************/
 
         //Checks to see if all forms are filled before adding user
         private void button_signUp_finish_Click(object sender, EventArgs e)
@@ -152,15 +151,44 @@ namespace cmaftei_Corsi_Span
 
         /******************************************************************************************************************/
 
+        /// <summary>
+        /// All Button Actions in the following section are used exclusively for the game page.
+        /// </summary>
         /*BUTTONS FOR GAME PAGE *******************************************************************************************/
+        
+        //logs player out. Saves score value if score is higher then current bestScore. Brings user to main screen.
         private void button_game_logout_Click(object sender, EventArgs e)
         {
             //Need to save changes for active player if that happened.
                 //Look into replacing text file contents with new contents as there does not exist (check again) a delete
                 //method for stream writer.
-            //Brings Title Panel Back to front. Hide this page. 
+            if(currentLevel > activePlayer.GetBestScore())
+            {
+                activePlayer.SetBestScore(currentLevel);
+            }
+
+            panel_TitleScreen.Visible = true;
+            panel_Game.Visible = false;
         }
-        /*BUTTONS FOR GAME PAGE *******************************************************************************************/
+
+        //Iterates through players to find highest score.
+        private void button_game_checkScoreboard_Click(object sender, EventArgs e)
+        {
+            scoreBoard.LoadScores(players);
+            MessageBox.Show(String.Format("SCOREBOARD:\n{0}",scoreBoard.ToString())); //Maybe switch this is for a form of some sort to style scoreboard
+        }
+
+        //??? Currently just shows what is the highest score for the current user. 
+        private void button_game_viewUserHistory_Click(object sender, EventArgs e)
+        {
+            //Need guidance on this right now. Should I show a messageBox with current highScore, or highScore and last Time
+            //Played?
+            MessageBox.Show(String.Format("Current High Score for {0}:\t{1}", 
+                activePlayer.GetUserName(), 
+                activePlayer.GetBestScore()));
+        }
+
+        /******************************************************************************************************************/
 
         //On opening the file, view 
         private void LoadPlayers()
@@ -178,6 +206,15 @@ namespace cmaftei_Corsi_Span
                     players.Add(player);
                 }
             }
+        }
+
+        //Establishes the appropriate flow of each panel.
+        private void panelSetup()
+        {
+            panel_TitleScreen.Visible = true;
+            panel_SignUp.Visible = false;
+            panel_Game.Visible = false;
+            //panel_Admin.Visible = false; //Create this
         }
 
         //false means a user already exists so no flag is needed, true means user is not found in DB, therefore flag is true.

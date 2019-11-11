@@ -413,7 +413,7 @@
             this.button_game_checkMySequence.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.button_game_checkMySequence.Location = new System.Drawing.Point(25, 295);
             this.button_game_checkMySequence.Name = "button_game_checkMySequence";
-            this.button_game_checkMySequence.Size = new System.Drawing.Size(299, 47);
+            this.button_game_checkMySequence.Size = new System.Drawing.Size(299, 53);
             this.button_game_checkMySequence.TabIndex = 7;
             this.button_game_checkMySequence.Text = "Check My Sequence";
             this.button_game_checkMySequence.UseVisualStyleBackColor = false;
@@ -430,6 +430,7 @@
             this.button_game_startRound.TabIndex = 6;
             this.button_game_startRound.Text = "Start Round";
             this.button_game_startRound.UseVisualStyleBackColor = false;
+            this.button_game_startRound.Click += new System.EventHandler(this.button_game_startRound_Click);
             // 
             // button_game_viewUserHistory
             // 

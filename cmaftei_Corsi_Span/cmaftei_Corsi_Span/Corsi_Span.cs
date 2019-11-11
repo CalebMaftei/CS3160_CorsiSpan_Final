@@ -14,6 +14,8 @@ namespace cmaftei_Corsi_Span
     public partial class Corsi_Span : Form
     {
         List<Player> players = new List<Player>();
+        Block[] blocks = new Block[9];
+        Button[] blockButtons = new Button[9];
         Scoreboard scoreBoard = new Scoreboard();
         int currentLevel = 0;
         Player activePlayer;
@@ -22,6 +24,7 @@ namespace cmaftei_Corsi_Span
         {
             InitializeComponent();
             panelSetup();
+            LoadBlocksWithButtons();
             LoadPlayers();
         }
 
@@ -188,6 +191,15 @@ namespace cmaftei_Corsi_Span
                 activePlayer.GetBestScore()));
         }
 
+        //Generates the sequence to prompt the user. Also decides the game mode.
+        private void button_game_startRound_Click(object sender, EventArgs e)
+        {
+            //Generate Sequence
+            //Play Sequence
+            //Visibility for startRound_btn goes away
+            //Visibility for checkSequence is true
+        }
+
         /******************************************************************************************************************/
 
         //On opening the file, view 
@@ -235,6 +247,37 @@ namespace cmaftei_Corsi_Span
                 }
             }
             return true; //if login doesn't match anything in DB, then failed attempt.
+        }
+
+        //Creates all the blocks that will be used in game, as well as associates them with their respective buttons.
+        private void LoadBlocksWithButtons()
+        {
+            Random rand = new Random();
+            blocks[0] = new Block(Color.Blue, 1, rand.Next(10,375));
+            blocks[1] = new Block(Color.Green, 2, rand.Next(10, 375));
+            blocks[2] = new Block(Color.Purple, 3, rand.Next(10, 375));
+            blocks[3] = new Block(Color.Pink, 4, rand.Next(10, 375));
+            blocks[4] = new Block(Color.Red, 5, rand.Next(10, 375));
+            blocks[5] = new Block(Color.Orange, 6, rand.Next(10, 375));
+            blocks[6] = new Block(Color.Yellow, 7, rand.Next(10, 375));
+            blocks[7] = new Block(Color.LimeGreen, 8, rand.Next(10, 375));
+            blocks[8] = new Block(Color.Teal, 9, rand.Next(10, 375));
+
+            blockButtons[0] = button_block1;
+            blockButtons[1] = button_block2;
+            blockButtons[2] = button_block3;
+            blockButtons[3] = button_block4;
+            blockButtons[4] = button_block5;
+            blockButtons[5] = button_block6;
+            blockButtons[6] = button_block7;
+            blockButtons[7] = button_block8;
+            blockButtons[8] = button_block9;
+
+            for(int i = 0; i < blockButtons.Count(); i++)
+            {
+                blockButtons[i].Location = new Point(blocks[i].GetXLocation(), blocks[i].GetYLocation());
+                blockButtons[i].BackColor = blocks[i].GetBlockColor();
+            }
         }
     }
 }

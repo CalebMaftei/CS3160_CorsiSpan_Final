@@ -17,10 +17,8 @@ namespace cmaftei_Corsi_Span
         private string diagnosis;
         private int bestScore;
 
-        //locations for saved data
-        private string loginInfoDestination = AppDomain.CurrentDomain.BaseDirectory + @"playerInfo/user_loginInfo/login_Info.txt";
-        private string aboutInfoDestination = AppDomain.CurrentDomain.BaseDirectory + @"playerInfo/user_aboutInfo/about_Info.txt";
-        private string scoreInfoDestination = AppDomain.CurrentDomain.BaseDirectory + @"playerInfo/user_scoreInfo/score_Info.txt";
+        //location for saved data
+        private string loadInfoDestination = AppDomain.CurrentDomain.BaseDirectory + @"playerInfo/loadPlayers.txt";
 
         //0 param constructor... potentially do not need this.
         public Player()
@@ -29,13 +27,15 @@ namespace cmaftei_Corsi_Span
         }
 
         //All Param Constructor
-        public Player(string newUserName, string newPassword, DateTime newDOB, string newCity, string newState, 
-            string newCounty, string newDiagnosis)
+        public Player(
+            string newUserName, string newPassword, int newBestScore, DateTime newDOB, 
+            string newCity, string newState, string newCounty, string newDiagnosis
+            )
         {
             this.userName = newUserName;
             this.password = newPassword;
             this.adminValue = false;
-            this.bestScore = 0;
+            this.bestScore = newBestScore;
             this.dateOfBirth = newDOB;
             this.city = newCity;
             this.state = newState;
@@ -85,42 +85,42 @@ namespace cmaftei_Corsi_Span
         }
 
         //setters
-        public void GetUserName(string newUserName)
+        public void SetUserName(string newUserName)
         {
             this.userName = newUserName;
         }
 
-        public void GetPassword(string newPassword)
+        public void SetPassword(string newPassword)
         {
             this.password = newPassword;
         }
 
-        public void GetDOB(DateTime DOB)
+        public void SetDOB(DateTime DOB)
         {
             this.dateOfBirth = DOB;
         }
 
-        public void GetCity(string city)
+        public void SetCity(string city)
         {
             this.city = city;
         }
 
-        public void GetState( string state)
+        public void SetState( string state)
         {
             this.state = state;
         }
 
-        public void GetCounty( string county)
+        public void SetCounty( string county)
         {
             this.county = county;
         }
 
-        public void GetDiagnosis(string diagnosis)
+        public void SetDiagnosis(string diagnosis)
         {
             this.diagnosis = diagnosis;
         }
 
-        public void GetBestScore(int bestScore)
+        public void SetBestScore(int bestScore)
         {
             this.bestScore = bestScore;
         }
@@ -128,28 +128,16 @@ namespace cmaftei_Corsi_Span
         //Takes the user's current information and saves the information in the appropriate txt file.
         public void SaveUserData()
         {
-            //Saves these values within the appropriate text files.
-            string loginInfo = String.Format("{0},{1}", this.userName, this.password);
-            string scoreInfo = String.Format("{0},{1}", this.userName.ToLower(), this.bestScore);
-            string aboutInfo = 
-                String.Format("{0},{1},{2},{3},{4},{5}", this.userName.ToLower(), this.dateOfBirth, this.city.ToLower(), 
+            string loadInfo = String.Format("{0},{1},{2},{3},{4},{5},{6},{7}",
+                this.userName.ToLower(), this.password, this.bestScore, this.dateOfBirth.Date, this.city.ToLower(),
                 this.state.ToLower(), this.county.ToLower(), this.diagnosis.ToLower());
 
             //Find way to update appropriate info when scores are changed
             //Create logic in case files get deleted to create appropriate files
 
-            //Load apporpriate data to the correct files
-            using (StreamWriter sw = File.AppendText(loginInfoDestination))
+            using (StreamWriter sw = File.AppendText(loadInfoDestination))
             {
-                sw.WriteLine(loginInfo);
-            }
-            using (StreamWriter sw = File.AppendText(aboutInfoDestination))
-            {
-                sw.WriteLine(aboutInfo);
-            }
-            using (StreamWriter sw = File.AppendText(scoreInfoDestination))
-            {
-                sw.WriteLine(scoreInfo);
+                sw.WriteLine(loadInfo);
             }
         }
 
@@ -157,25 +145,20 @@ namespace cmaftei_Corsi_Span
         //saying can't add existing user.
         public bool CheckForRedundnantUser()
         {
-            using (StreamReader sr = File.OpenText(loginInfoDestination))
+            using (StreamReader sr = File.OpenText(loadInfoDestination))
             {
                 string line;
-                string user = "";
+                string[] playerInfo;
 
                 while ((line = sr.ReadLine()) != null)
                 {
-                    foreach (char letter in line.ToArray())
-                    {
-                        if (letter == ',')
-                            break;
-                        user += letter;
-                    }
+                    playerInfo = line.Split(',');
+
                     //Need username to be checked.
-                    if (user == this.userName)
-                    { 
+                    if (playerInfo[0] == this.userName)
+                    {
                         return true;
                     }
-                    user = "";
                 }
             }
             return false;

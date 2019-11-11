@@ -13,13 +13,14 @@ namespace cmaftei_Corsi_Span
 {
     public partial class Corsi_Span : Form
     {
-        string currentUser;
-        int currentUserScore;
+        List<Player> players = new List<Player>();
+        Player activePlayer;
 
         public Corsi_Span()
         {
             InitializeComponent();
             panelSetup();
+            LoadPlayers();
         }
 
         //Establishes the appropriate flow of each panel.
@@ -59,8 +60,19 @@ namespace cmaftei_Corsi_Span
             //Passed! Prepare Game State
             else
             {
-                currentUser = textBox_usernameEntry.Text;
-                label_game_currentPlayer.Text = "Current Player: " + currentUser.ToUpper();
+                //Based on the valid user entry, finds it in the list of players.
+                foreach(Player p in players)
+                {
+                    if(textBox_usernameEntry.Text == p.GetUserName())
+                    {
+                        activePlayer = p;
+                        break;
+                    }
+                }
+
+                //Sets up game state for when user comes into the game page.
+                label_game_currentPlayer.Text = "Current Player: " + activePlayer.GetUserName().ToUpper();
+                label_game_score.Text = "SCORE: " + activePlayer.GetBestScore();
                 label_game_mode.Text = "Game Mode: NORMAL";
                 panel_Game.Visible = true;
                 panel_TitleScreen.Visible = false; 
@@ -92,6 +104,7 @@ namespace cmaftei_Corsi_Span
                 Player player = new Player(
                     textBox_signUp_Username.Text.ToLower(),
                     textBox_signUp_Password.Text,
+                    0,
                     dateTimePicker_SignUp_DOB.Value,
                     textBox_signUp_City.Text.ToLower(),
                     textBox_signUp_State.Text.ToLower(),
@@ -109,7 +122,7 @@ namespace cmaftei_Corsi_Span
                 {
                     MessageBox.Show("You have been added! Sign In Through the Title Page to start!");
                     player.SaveUserData();
-
+                    players.Add(player);
                     //places user at beginning page, and clears out entry in case new user wants to sign up as well.
                     //Possible Method for refactoring purposes.
                     panel_SignUp.Visible = false;
@@ -137,20 +150,38 @@ namespace cmaftei_Corsi_Span
             textBox_signUp_Diagnosis.Text = "";
         }
 
-        //******************************************************************************************************************
+        /******************************************************************************************************************/
+
+        //On opening the file, view 
+        private void LoadPlayers()
+        {
+            using (StreamReader sr = File.OpenText(AppDomain.CurrentDomain.BaseDirectory +
+                @"playerInfo/loadPlayers.txt"))
+            {
+                string line;
+                string[] info;
+                while((line = sr.ReadLine()) != null)
+                {
+                    info = line.Split(',');
+                    Player player = new Player(info[0], info[1], Int32.Parse(info[2]), DateTime.Parse(info[3]), 
+                        info[4], info[5], info[6], info[7]);
+                    players.Add(player);
+                }
+            }
+        }
 
         //false means a user already exists so no flag is needed, true means user is not found in DB, therefore flag is true.
         private bool CheckForValidLogin(string user, string pass)
         {
-            string playerLoginInfoQuestion = String.Format("{0},{1}", user.ToLower(), pass);
-
             using (StreamReader sr = File.OpenText(AppDomain.CurrentDomain.BaseDirectory + 
-                @"playerInfo/user_loginInfo/login_Info.txt"))
+                @"playerInfo/loadPlayers.txt"))
             {
                 string line;
+                string[] info;
                 while ((line = sr.ReadLine()) != null)
                 {
-                    if (line == playerLoginInfoQuestion) //login matches something in the DB. Login is good.
+                    info = line.Split(',');
+                    if(info[0] == user.ToLower() && info[1] == pass)
                     {
                         return false;
                     }

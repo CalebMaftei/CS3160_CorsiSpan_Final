@@ -65,10 +65,20 @@
             this.label_game_mode = new System.Windows.Forms.Label();
             this.label_game_currentPlayer = new System.Windows.Forms.Label();
             this.panel_gameBoard = new System.Windows.Forms.Panel();
+            this.button_block1 = new System.Windows.Forms.Button();
+            this.button_block2 = new System.Windows.Forms.Button();
+            this.button_block3 = new System.Windows.Forms.Button();
+            this.button_block4 = new System.Windows.Forms.Button();
+            this.button_block5 = new System.Windows.Forms.Button();
+            this.button_block6 = new System.Windows.Forms.Button();
+            this.button_block7 = new System.Windows.Forms.Button();
+            this.button_block8 = new System.Windows.Forms.Button();
+            this.button_block9 = new System.Windows.Forms.Button();
             this.panel_TitleScreen.SuspendLayout();
             this.panel_SignUp.SuspendLayout();
             this.panel_Game.SuspendLayout();
             this.panel_gameHeader.SuspendLayout();
+            this.panel_gameBoard.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel_TitleScreen
@@ -398,7 +408,7 @@
             // button_game_checkMySequence
             // 
             this.button_game_checkMySequence.BackColor = System.Drawing.Color.BurlyWood;
-            this.button_game_checkMySequence.Font = new System.Drawing.Font("Modern No. 20", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button_game_checkMySequence.Font = new System.Drawing.Font("Modern No. 20", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button_game_checkMySequence.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.button_game_checkMySequence.Location = new System.Drawing.Point(25, 295);
             this.button_game_checkMySequence.Name = "button_game_checkMySequence";
@@ -410,7 +420,7 @@
             // button_game_startRound
             // 
             this.button_game_startRound.BackColor = System.Drawing.Color.BurlyWood;
-            this.button_game_startRound.Font = new System.Drawing.Font("Modern No. 20", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button_game_startRound.Font = new System.Drawing.Font("Modern No. 20", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button_game_startRound.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.button_game_startRound.Location = new System.Drawing.Point(25, 222);
             this.button_game_startRound.Name = "button_game_startRound";
@@ -422,7 +432,7 @@
             // button_game_viewUserHistory
             // 
             this.button_game_viewUserHistory.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.button_game_viewUserHistory.Font = new System.Drawing.Font("Modern No. 20", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button_game_viewUserHistory.Font = new System.Drawing.Font("Modern No. 20", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button_game_viewUserHistory.ForeColor = System.Drawing.Color.Tan;
             this.button_game_viewUserHistory.Location = new System.Drawing.Point(25, 148);
             this.button_game_viewUserHistory.Name = "button_game_viewUserHistory";
@@ -434,7 +444,7 @@
             // button_game_checkScoreboard
             // 
             this.button_game_checkScoreboard.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.button_game_checkScoreboard.Font = new System.Drawing.Font("Modern No. 20", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button_game_checkScoreboard.Font = new System.Drawing.Font("Modern No. 20", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button_game_checkScoreboard.ForeColor = System.Drawing.Color.Tan;
             this.button_game_checkScoreboard.Location = new System.Drawing.Point(25, 72);
             this.button_game_checkScoreboard.Name = "button_game_checkScoreboard";
@@ -487,16 +497,97 @@
             // panel_gameBoard
             // 
             this.panel_gameBoard.BackColor = System.Drawing.Color.Black;
+            this.panel_gameBoard.Controls.Add(this.button_block9);
+            this.panel_gameBoard.Controls.Add(this.button_block8);
+            this.panel_gameBoard.Controls.Add(this.button_block7);
+            this.panel_gameBoard.Controls.Add(this.button_block6);
+            this.panel_gameBoard.Controls.Add(this.button_block5);
+            this.panel_gameBoard.Controls.Add(this.button_block4);
+            this.panel_gameBoard.Controls.Add(this.button_block3);
+            this.panel_gameBoard.Controls.Add(this.button_block2);
+            this.panel_gameBoard.Controls.Add(this.button_block1);
             this.panel_gameBoard.Location = new System.Drawing.Point(342, 53);
             this.panel_gameBoard.Name = "panel_gameBoard";
             this.panel_gameBoard.Size = new System.Drawing.Size(934, 667);
             this.panel_gameBoard.TabIndex = 2;
             // 
+            // button_block1
+            // 
+            this.button_block1.Location = new System.Drawing.Point(20, 20);
+            this.button_block1.Name = "button_block1";
+            this.button_block1.Size = new System.Drawing.Size(60, 60);
+            this.button_block1.TabIndex = 0;
+            this.button_block1.UseVisualStyleBackColor = true;
+            // 
+            // button_block2
+            // 
+            this.button_block2.Location = new System.Drawing.Point(120, 20);
+            this.button_block2.Name = "button_block2";
+            this.button_block2.Size = new System.Drawing.Size(60, 60);
+            this.button_block2.TabIndex = 1;
+            this.button_block2.UseVisualStyleBackColor = true;
+            // 
+            // button_block3
+            // 
+            this.button_block3.Location = new System.Drawing.Point(220, 20);
+            this.button_block3.Name = "button_block3";
+            this.button_block3.Size = new System.Drawing.Size(60, 60);
+            this.button_block3.TabIndex = 2;
+            this.button_block3.UseVisualStyleBackColor = true;
+            // 
+            // button_block4
+            // 
+            this.button_block4.Location = new System.Drawing.Point(320, 20);
+            this.button_block4.Name = "button_block4";
+            this.button_block4.Size = new System.Drawing.Size(60, 60);
+            this.button_block4.TabIndex = 3;
+            this.button_block4.UseVisualStyleBackColor = true;
+            // 
+            // button_block5
+            // 
+            this.button_block5.Location = new System.Drawing.Point(420, 20);
+            this.button_block5.Name = "button_block5";
+            this.button_block5.Size = new System.Drawing.Size(60, 60);
+            this.button_block5.TabIndex = 4;
+            this.button_block5.UseVisualStyleBackColor = true;
+            // 
+            // button_block6
+            // 
+            this.button_block6.Location = new System.Drawing.Point(520, 20);
+            this.button_block6.Name = "button_block6";
+            this.button_block6.Size = new System.Drawing.Size(60, 60);
+            this.button_block6.TabIndex = 5;
+            this.button_block6.UseVisualStyleBackColor = true;
+            // 
+            // button_block7
+            // 
+            this.button_block7.Location = new System.Drawing.Point(620, 20);
+            this.button_block7.Name = "button_block7";
+            this.button_block7.Size = new System.Drawing.Size(60, 60);
+            this.button_block7.TabIndex = 6;
+            this.button_block7.UseVisualStyleBackColor = true;
+            // 
+            // button_block8
+            // 
+            this.button_block8.Location = new System.Drawing.Point(720, 20);
+            this.button_block8.Name = "button_block8";
+            this.button_block8.Size = new System.Drawing.Size(60, 60);
+            this.button_block8.TabIndex = 7;
+            this.button_block8.UseVisualStyleBackColor = true;
+            // 
+            // button_block9
+            // 
+            this.button_block9.Location = new System.Drawing.Point(820, 20);
+            this.button_block9.Name = "button_block9";
+            this.button_block9.Size = new System.Drawing.Size(60, 60);
+            this.button_block9.TabIndex = 8;
+            this.button_block9.UseVisualStyleBackColor = true;
+            // 
             // Corsi_Span
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1238, 691);
+            this.ClientSize = new System.Drawing.Size(1252, 691);
             this.Controls.Add(this.panel_Game);
             this.Controls.Add(this.panel_TitleScreen);
             this.Controls.Add(this.panel_SignUp);
@@ -509,6 +600,7 @@
             this.panel_Game.ResumeLayout(false);
             this.panel_gameHeader.ResumeLayout(false);
             this.panel_gameHeader.PerformLayout();
+            this.panel_gameBoard.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -552,6 +644,15 @@
         private System.Windows.Forms.Label label_game_currentPlayer;
         private System.Windows.Forms.Label label_game_mode;
         private System.Windows.Forms.Label label_game_score;
+        private System.Windows.Forms.Button button_block9;
+        private System.Windows.Forms.Button button_block8;
+        private System.Windows.Forms.Button button_block7;
+        private System.Windows.Forms.Button button_block6;
+        private System.Windows.Forms.Button button_block5;
+        private System.Windows.Forms.Button button_block4;
+        private System.Windows.Forms.Button button_block3;
+        private System.Windows.Forms.Button button_block2;
+        private System.Windows.Forms.Button button_block1;
     }
 }
 

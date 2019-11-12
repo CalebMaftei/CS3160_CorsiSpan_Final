@@ -6,6 +6,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -17,8 +18,9 @@ namespace cmaftei_Corsi_Span
         Block[] blocks = new Block[9];
         Button[] blockButtons = new Button[9];
         Scoreboard scoreBoard = new Scoreboard();
-        int currentLevel = 0;
+        Sequence sequence = new Sequence();
         Player activePlayer;
+        int currentLevel = 2;
 
         public Corsi_Span()
         {
@@ -26,6 +28,19 @@ namespace cmaftei_Corsi_Span
             panelSetup();
             LoadBlocksWithButtons();
             LoadPlayers();
+
+            //Gives buttons their respective event methods through delegated functions
+            for(int i = 0; i < blockButtons.Count(); i++)
+            {
+                int x;
+                x = i;
+                //Every Click adds to the userSequence
+                blockButtons[x].Click += (o, e) => sequence.addToUserSequence(blocks[x].GetBlockID());
+                //Every Click should highlight the cube to let the user know that it was
+                blockButtons[x].Click += (o, e) => colorChange(blockButtons[x], blocks[x].GetBlockColor(), true);
+                //When Mouse leaves block, it resets the highlight
+                blockButtons[x].MouseLeave += (o, e) => colorChange(blockButtons[x], blocks[x].GetBlockColor(), false);
+            }
         }
 
         /// <summary>
@@ -194,31 +209,68 @@ namespace cmaftei_Corsi_Span
         //Generates the sequence to prompt the user. Also decides the game mode.
         private void button_game_startRound_Click(object sender, EventArgs e)
         {
-            //Generate Sequence
-            //Play Sequence
+            MessageBox.Show("Starting the round! REMINDER: The Sequence is the cubes that go dark red! " +
+                "Click them at the end of the sequnce!");
+            //Disable all buttons to prevent disruption of sequence demonstration
+            foreach(Button b in blockButtons)
+            {
+                b.Enabled = false;
+            }
+
+            //generateSequence
+            sequence.GenerateSequence(currentLevel);
+            
+            //Generate and Play Sequence
+            foreach (int blockNum in sequence.GetSystemSequence())
+            {
+                Task buttonFlash = Task.Factory.StartNew(() =>
+                {
+                    blockButtons[blockNum].BackColor = sequence.GetActiveBlockColor();
+                    Thread.Sleep(1500);
+                    blockButtons[blockNum].BackColor = blocks[blockNum].GetBlockColor();
+                    Thread.Sleep(500);
+                }
+                );
+                buttonFlash.Wait();
+            }
+            
             //Visibility for startRound_btn goes away
+            button_game_startRound.Visible = false;
+            
             //Visibility for checkSequence is true
+            button_game_checkMySequence.Visible = true;
+            
+            //Let user know the sequence has finished
+            MessageBox.Show("Now Your Turn! Match the Sequence.");
+            
+            //enable buttons now.
+            foreach (Button b in blockButtons)
+            {
+                b.Enabled = true;
+            }
+        }
+
+        //Checks the sequence that the user has created
+        private void button_game_checkMySequence_Click(object sender, EventArgs e)
+        {
+            if(sequence.sequenceCheck())
+            {
+                MessageBox.Show("Congratulations! That is Correct!");
+                currentLevel++;
+                label_game_score.Text = "SCORE/LEVEL : " + currentLevel.ToString();
+                button_game_checkMySequence.Visible = false;
+                button_game_startRound.Visible = true;
+            }
+            else
+            {
+                MessageBox.Show("Sorry! That is incorrect. Try Again!");
+            }
+
+            //Reset Sequences
+            sequence.ResetSequences();
         }
 
         /******************************************************************************************************************/
-
-        //On opening the file, view 
-        private void LoadPlayers()
-        {
-            using (StreamReader sr = File.OpenText(AppDomain.CurrentDomain.BaseDirectory +
-                @"playerInfo/loadPlayers.txt"))
-            {
-                string line;
-                string[] info;
-                while((line = sr.ReadLine()) != null)
-                {
-                    info = line.Split(',');
-                    Player player = new Player(info[0], info[1], Int32.Parse(info[2]), DateTime.Parse(info[3]), 
-                        info[4], info[5], info[6], info[7]);
-                    players.Add(player);
-                }
-            }
-        }
 
         //Establishes the appropriate flow of each panel.
         private void panelSetup()
@@ -252,6 +304,7 @@ namespace cmaftei_Corsi_Span
         //Creates all the blocks that will be used in game, as well as associates them with their respective buttons.
         private void LoadBlocksWithButtons()
         {
+            //Creating all block data
             Random rand = new Random();
             blocks[0] = new Block(Color.Blue, 1, rand.Next(10,375));
             blocks[1] = new Block(Color.Green, 2, rand.Next(10, 375));
@@ -263,6 +316,7 @@ namespace cmaftei_Corsi_Span
             blocks[7] = new Block(Color.LimeGreen, 8, rand.Next(10, 375));
             blocks[8] = new Block(Color.Teal, 9, rand.Next(10, 375));
 
+            //loading all buttons into array
             blockButtons[0] = button_block1;
             blockButtons[1] = button_block2;
             blockButtons[2] = button_block3;
@@ -273,11 +327,36 @@ namespace cmaftei_Corsi_Span
             blockButtons[7] = button_block8;
             blockButtons[8] = button_block9;
 
+            //iterate through each button and associate it to the data for each block
             for(int i = 0; i < blockButtons.Count(); i++)
             {
                 blockButtons[i].Location = new Point(blocks[i].GetXLocation(), blocks[i].GetYLocation());
                 blockButtons[i].BackColor = blocks[i].GetBlockColor();
             }
+        }
+
+        //On opening program, pull from db and create all players.
+        private void LoadPlayers()
+        {
+            using (StreamReader sr = File.OpenText(AppDomain.CurrentDomain.BaseDirectory +
+                @"playerInfo/loadPlayers.txt"))
+            {
+                string line;
+                string[] info;
+                while ((line = sr.ReadLine()) != null)
+                {
+                    info = line.Split(',');
+                    Player player = new Player(info[0], info[1], Int32.Parse(info[2]), DateTime.Parse(info[3]),
+                        info[4], info[5], info[6], info[7]);
+                    players.Add(player);
+                }
+            }
+        }
+
+        //Purpose: Toggle background color for blocks, based on user clicks
+        private void colorChange(Button block, Color resetColor, bool flash)
+        {
+            block.BackColor = (flash) ? sequence.GetActiveBlockColor() : resetColor;
         }
     }
 }

@@ -14,7 +14,10 @@ namespace cmaftei_Corsi_Span
         {
             foreach(Player p in players)
             {
-                playerScores.Add(p.GetUserName(), p.GetBestScore());
+                if(!playerScores.ContainsKey(p.GetUserName()))
+                {
+                    playerScores.Add(p.GetUserName(), p.GetBestScore());
+                }                
             }
         }
 

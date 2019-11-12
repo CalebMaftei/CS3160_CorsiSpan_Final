@@ -15,7 +15,7 @@ namespace cmaftei_Corsi_Span
         private int blockID;
         private Random rand = new Random();
 
-        //4-Element Constructor
+        //3-Element Constructor
         public Block(Color BlockColor, int BlockID, int randomValue)
         {
             this.blockColor = BlockColor;
@@ -68,11 +68,6 @@ namespace cmaftei_Corsi_Span
         //Shuffle Location
         private void shuffleBlockLocation(int i)
         {
-            /*Point randomLocation = new Point(
-                    int.Parse((77 * (this.blockID + 1) + 10).ToString()),
-                    int.Parse(rand.Next(10, 280).ToString())
-                    );*/
-            //Random rand = new Random();
             this.xLocation = 65 * (this.blockID-1) + 10;
             this.yLocation = i;
         }

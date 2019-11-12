@@ -418,6 +418,7 @@
             this.button_game_checkMySequence.Text = "Check My Sequence";
             this.button_game_checkMySequence.UseVisualStyleBackColor = false;
             this.button_game_checkMySequence.Visible = false;
+            this.button_game_checkMySequence.Click += new System.EventHandler(this.button_game_checkMySequence_Click);
             // 
             // button_game_startRound
             // 

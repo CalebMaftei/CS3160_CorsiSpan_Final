@@ -17,12 +17,17 @@ namespace cmaftei_Corsi_Span
         //getters
         public List<int> GetSystemSequence()
         {
-            return systemSequence;
+            return this.systemSequence;
+        }
+
+        public List<int> GetUserSequence()
+        {
+            return this.userSequence;
         }
 
         public Color GetActiveBlockColor()
         {
-            return activeBlockColor;
+            return this.activeBlockColor;
         }
 
         public string GetGameMode()
@@ -86,6 +91,33 @@ namespace cmaftei_Corsi_Span
             return true;
         }
 
+        //Reverse Check
+        public bool ReverseSequenceCheck()
+        {
+            //if sequence lengths are not the same, return false
+            if(systemSequence.Count != userSequence.Count)
+            {
+                return false;
+            }
+            else //sequences are the same length
+            {
+                //convert sequences to arrays for fine comparisons
+                systemSequence.Reverse();
+                int[] systemArray = systemSequence.ToArray();
+                int[] userArray = userSequence.ToArray();
+
+                //Checks if user sequence matches the system sequence.
+                for(int i = 0; i < systemArray.Count(); i++)
+                {
+                    if(systemArray[i] != userArray[i])
+                    {
+                        return false;
+                    }
+                }
+            }
+            return true;
+        }
+
         //Resets sequence for new rounds
         public void ResetSequences()
         {
@@ -98,7 +130,7 @@ namespace cmaftei_Corsi_Span
         {
             Random rand = new Random();
             int i;
-            i = rand.Next(0, 1000);
+            i = rand.Next(0, 999);
             if(i % 2 == 0)
             {
                 return true;

@@ -17,7 +17,11 @@ namespace cmaftei_Corsi_Span
                 if(!playerScores.ContainsKey(p.GetUserName()))
                 {
                     playerScores.Add(p.GetUserName(), p.GetBestScore());
-                }                
+                }
+                else //player already exists, so update their score instead
+                {
+                    playerScores[p.GetUserName()] = p.GetBestScore();
+                }
             }
         }
 

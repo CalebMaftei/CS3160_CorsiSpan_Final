@@ -21,11 +21,12 @@ namespace cmaftei_Corsi_Span
         Sequence sequence = new Sequence();
         Player activePlayer;
         int currentLevel = 2;
+        string gameMode = "normal";
 
         public Corsi_Span()
         {
             InitializeComponent();
-            panelSetup();
+            PanelSetup();
             LoadBlocksWithButtons();
             LoadPlayers();
 
@@ -37,9 +38,9 @@ namespace cmaftei_Corsi_Span
                 //Every Click adds to the userSequence
                 blockButtons[x].Click += (o, e) => sequence.addToUserSequence(blocks[x].GetBlockID());
                 //Every Click should highlight the cube to let the user know that it was
-                blockButtons[x].Click += (o, e) => colorChange(blockButtons[x], blocks[x].GetBlockColor(), true);
+                blockButtons[x].Click += (o, e) => ColorChange(blockButtons[x], blocks[x].GetBlockColor(), true);
                 //When Mouse leaves block, it resets the highlight
-                blockButtons[x].MouseLeave += (o, e) => colorChange(blockButtons[x], blocks[x].GetBlockColor(), false);
+                blockButtons[x].MouseLeave += (o, e) => ColorChange(blockButtons[x], blocks[x].GetBlockColor(), false);
             }
         }
 
@@ -54,7 +55,7 @@ namespace cmaftei_Corsi_Span
             panel_TitleScreen.Visible = false;
             panel_SignUp.Visible = true;
         }
-
+         
         //Gateway to game (NEEDS VALIDATION OR USER AND PASSWORD)
         private void button_login_Click(object sender, EventArgs e)
         {
@@ -85,7 +86,7 @@ namespace cmaftei_Corsi_Span
                 }
                 label_game_currentPlayer.Text = "Current Player: " + activePlayer.GetUserName().ToUpper();
                 label_game_score.Text = "SCORE/LEVEL : " + currentLevel.ToString();
-                label_game_mode.Text = "Game Mode: NORMAL";
+                label_game_mode.Text = "Game Mode: " + gameMode.ToUpper();
                 textBox_usernameEntry.Text = "";
                 textBox_passwordEntry.Text = "";
                 panel_Game.Visible = true;
@@ -185,6 +186,9 @@ namespace cmaftei_Corsi_Span
                 activePlayer.SetBestScore(currentLevel);
             }
 
+            //Reset the level for the next player who logs in.
+            currentLevel = 2;
+            label_game_score.Text = "SCORE/LEVEL : " + currentLevel.ToString();
             panel_TitleScreen.Visible = true;
             panel_Game.Visible = false;
         }
@@ -192,6 +196,10 @@ namespace cmaftei_Corsi_Span
         //Iterates through players to find highest score.
         private void button_game_checkScoreboard_Click(object sender, EventArgs e)
         {
+            if (currentLevel > activePlayer.GetBestScore())
+            {
+                activePlayer.SetBestScore(currentLevel);
+            }
             scoreBoard.LoadScores(players);
             MessageBox.Show(String.Format("SCOREBOARD:\n{0}",scoreBoard.ToString())); //Maybe switch this is for a form of some sort to style scoreboard
         }
@@ -201,6 +209,10 @@ namespace cmaftei_Corsi_Span
         {
             //Need guidance on this right now. Should I show a messageBox with current highScore, or highScore and last Time
             //Played?
+            if (currentLevel > activePlayer.GetBestScore())
+            {
+                activePlayer.SetBestScore(currentLevel);
+            }
             MessageBox.Show(String.Format("Current High Score for {0}:\t{1}", 
                 activePlayer.GetUserName(), 
                 activePlayer.GetBestScore()));
@@ -253,53 +265,45 @@ namespace cmaftei_Corsi_Span
         //Checks the sequence that the user has created
         private void button_game_checkMySequence_Click(object sender, EventArgs e)
         {
-            if(sequence.sequenceCheck())
+            switch (gameMode)
             {
-                MessageBox.Show("Congratulations! That is Correct!");
-                currentLevel++;
-                label_game_score.Text = "SCORE/LEVEL : " + currentLevel.ToString();
-                button_game_checkMySequence.Visible = false;
-                button_game_startRound.Visible = true;
-            }
-            else
-            {
-                MessageBox.Show("Sorry! That is incorrect. Try Again!");
+                case "reverse":
+                    if (sequence.ReverseSequenceCheck())
+                    {
+                        MessageBox.Show("Congratulations! That is Correct!");
+                        currentLevel++;
+                        label_game_score.Text = "SCORE/LEVEL : " + currentLevel.ToString();
+                        ModeGenerate();
+                        label_game_mode.Text = "Game Mode: " + gameMode.ToUpper();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Sorry! That is incorrect. Try Again!");
+                    }
+                    break;
+                case "normal":
+                    if (sequence.sequenceCheck())
+                    {
+                        MessageBox.Show("Congratulations! That is Correct!");
+                        currentLevel++;
+                        label_game_score.Text = "SCORE/LEVEL : " + currentLevel.ToString();
+                        ModeGenerate();
+                        label_game_mode.Text = "Game Mode: " + gameMode.ToUpper();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Sorry! That is incorrect. Try Again!");
+                    }
+                    break;
             }
 
-            //Reset Sequences
+            //Reset Sequences & Buttons
             sequence.ResetSequences();
+            button_game_checkMySequence.Visible = false;
+            button_game_startRound.Visible = true;
         }
 
         /******************************************************************************************************************/
-
-        //Establishes the appropriate flow of each panel.
-        private void panelSetup()
-        {
-            panel_TitleScreen.Visible = true;
-            panel_SignUp.Visible = false;
-            panel_Game.Visible = false;
-            //panel_Admin.Visible = false; //Create this
-        }
-
-        //false means a user already exists so no flag is needed, true means user is not found in DB, therefore flag is true.
-        private bool CheckForValidLogin(string user, string pass)
-        {
-            using (StreamReader sr = File.OpenText(AppDomain.CurrentDomain.BaseDirectory + 
-                @"playerInfo/loadPlayers.txt"))
-            {
-                string line;
-                string[] info;
-                while ((line = sr.ReadLine()) != null)
-                {
-                    info = line.Split(',');
-                    if(info[0] == user.ToLower() && info[1] == pass)
-                    {
-                        return false;
-                    }
-                }
-            }
-            return true; //if login doesn't match anything in DB, then failed attempt.
-        }
 
         //Creates all the blocks that will be used in game, as well as associates them with their respective buttons.
         private void LoadBlocksWithButtons()
@@ -353,10 +357,60 @@ namespace cmaftei_Corsi_Span
             }
         }
 
-        //Purpose: Toggle background color for blocks, based on user clicks
-        private void colorChange(Button block, Color resetColor, bool flash)
+        //Establishes the appropriate flow of each panel.
+        private void PanelSetup()
+        {
+            panel_TitleScreen.Visible = true;
+            panel_SignUp.Visible = false;
+            panel_Game.Visible = false;
+            //panel_Admin.Visible = false; //Create this
+        }
+
+        //Determines if the round is reverse or not.
+        private void ModeGenerate()
+        {
+            gameMode = sequence.GetGameMode();
+            if(gameMode =="reverse")
+            {
+                panel_gameHeader.BackColor = Color.ForestGreen;
+                label_game_mode.ForeColor = Color.White;
+                label_game_currentPlayer.ForeColor = Color.White;
+                label_game_score.ForeColor = Color.White;
+            }
+            else
+            {
+                panel_gameHeader.BackColor = Color.BurlyWood;
+                label_game_mode.ForeColor = Color.Black;
+                label_game_currentPlayer.ForeColor = Color.Black;
+                label_game_score.ForeColor = Color.Black;
+            }
+        }
+
+        //Toggle background color for blocks, based on user clicks
+        private void ColorChange(Button block, Color resetColor, bool flash)
         {
             block.BackColor = (flash) ? sequence.GetActiveBlockColor() : resetColor;
         }
+
+        //false means a user already exists so no flag is needed, true means user is not found in DB, therefore flag is true.
+        private bool CheckForValidLogin(string user, string pass)
+        {
+            using (StreamReader sr = File.OpenText(AppDomain.CurrentDomain.BaseDirectory +
+                @"playerInfo/loadPlayers.txt"))
+            {
+                string line;
+                string[] info;
+                while ((line = sr.ReadLine()) != null)
+                {
+                    info = line.Split(',');
+                    if (info[0] == user.ToLower() && info[1] == pass)
+                    {
+                        return false;
+                    }
+                }
+            }
+            return true; //if login doesn't match anything in DB, then failed attempt.
+        }
+
     }
 }

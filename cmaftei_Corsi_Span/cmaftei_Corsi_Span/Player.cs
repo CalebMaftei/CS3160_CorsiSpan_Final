@@ -128,7 +128,7 @@ namespace cmaftei_Corsi_Span
         //Takes the user's current information and saves the information in the appropriate txt file.
         public void SaveUserData()
         {
-            string loadInfo = String.Format("{0},{1},{2},{3},{4},{5},{6},{7}",
+            string SaveInfo = String.Format("{0},{1},{2},{3},{4},{5},{6},{7}",
                 this.userName.ToLower(), this.password, this.bestScore, this.dateOfBirth.Date, this.city.ToLower(),
                 this.state.ToLower(), this.county.ToLower(), this.diagnosis.ToLower());
 
@@ -137,7 +137,7 @@ namespace cmaftei_Corsi_Span
 
             using (StreamWriter sw = File.AppendText(loadInfoDestination))
             {
-                sw.WriteLine(loadInfo);
+                sw.WriteLine(SaveInfo);
             }
         }
 

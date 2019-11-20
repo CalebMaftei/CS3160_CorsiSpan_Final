@@ -141,6 +141,72 @@ namespace cmaftei_Corsi_Span
             }
         }
 
+        //NEEDS TO BE TESTED
+        public void deleteAssignment()
+        {
+            string assignmentsLocation = AppDomain.CurrentDomain.BaseDirectory + @"textFileBackups/assignment_backUps.txt";
+            string tempFile = AppDomain.CurrentDomain.BaseDirectory + @"textFileBackups/tempFile.txt";
+
+            //For this to be correct with the database, we consistently need to update the DB as we make changes.
+            //Might want to to make the update function a private function, and place it into each setter.
+            string SaveInfo = String.Format("{0},{1},{2},{3},{4},{5},{6},{7}",
+                this.userName.ToLower(), this.password, this.bestScore, this.dateOfBirth.Date, this.city.ToLower(),
+                this.state.ToLower(), this.county.ToLower(), this.diagnosis.ToLower());
+
+            using (var sr = new StreamReader(assignmentsLocation))
+            using (var sw = new StreamWriter(tempFile))
+            {
+                string line;
+                while ((line = sr.ReadLine()) != null)
+                {
+                    if (line != SaveInfo)
+                        sw.WriteLine(line);
+                }
+            }
+
+            File.Delete("file.txt");
+            File.Move(tempFile, "file.txt");
+        }
+
+        //NEEDS TO BE TESTED
+        private void updateAssignment()
+        {
+            //Still Needed
+            string assignmentsLocation = AppDomain.CurrentDomain.BaseDirectory + @"textFileBackups/assignment_backUps.txt";
+            string tempFile = AppDomain.CurrentDomain.BaseDirectory + @"textFileBackups/tempFile.txt";
+
+            //For this to be correct with the database, we consistently need to update the DB as we make changes.
+            //Might want to to make the update function a private function, and place it into each setter.
+            string SaveInfo = String.Format("{0},{1},{2},{3},{4},{5},{6},{7}",
+                this.userName.ToLower(), this.password, this.bestScore, this.dateOfBirth.Date, this.city.ToLower(),
+                this.state.ToLower(), this.county.ToLower(), this.diagnosis.ToLower());
+
+
+            using (var sr = new StreamReader(assignmentsLocation))
+            using (var sw = new StreamWriter(tempFile))
+            {
+                string line;
+                while ((line = sr.ReadLine()) != null)
+                {
+                    if (line != SaveInfo)
+                    {
+                        //If line isn't the one that needs to be updated, then no revision needed
+                        sw.WriteLine(line);
+                    }
+                    else
+                    {
+                        //If line is the one that needs to be updated, then create revision
+                        SaveInfo = String.Format("{0},{1},{2},{3},{4},{5},{6},{7}",
+                this.userName.ToLower(), this.password, this.bestScore, this.dateOfBirth.Date, this.city.ToLower(),
+                this.state.ToLower(), this.county.ToLower(), this.diagnosis.ToLower());
+                        sw.WriteLine(SaveInfo);
+                    }
+                }
+            }
+            File.Delete("file.txt");
+            File.Move(tempFile, "file.txt");
+        }
+
         //MOVE TO UI CLASS. MIGHT MAKE OWN CLASS. Checks if user already exists. If so, goes back to UI to send message 
         //saying can't add existing user.
         public bool CheckForRedundnantUser()

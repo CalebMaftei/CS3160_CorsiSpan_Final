@@ -16,6 +16,7 @@ namespace cmaftei_Corsi_Span
         private string county;
         private string diagnosis;
         private int bestScore;
+        private string saveInfo;
 
         //location for saved data
         private string loadInfoDestination = AppDomain.CurrentDomain.BaseDirectory + @"playerInfo/loadPlayers.txt";
@@ -41,6 +42,9 @@ namespace cmaftei_Corsi_Span
             this.state = newState;
             this.county = newCounty;
             this.diagnosis = newDiagnosis;
+            this.saveInfo = String.Format("{0},{1},{2},{3},{4},{5},{6},{7}",
+                this.userName.ToLower(), this.password, this.bestScore, this.dateOfBirth.Date, this.city.ToLower(),
+                this.state.ToLower(), this.county.ToLower(), this.diagnosis.ToLower());
         }
 
         //getters
@@ -123,12 +127,21 @@ namespace cmaftei_Corsi_Span
         public void SetBestScore(int bestScore)
         {
             this.bestScore = bestScore;
+            //resetSaveInfo();
+            updateUserScores();
+        }
+
+        public void resetSaveInfo()
+        {
+            this.saveInfo = String.Format("{0},{1},{2},{3},{4},{5},{6},{7}",
+                this.userName.ToLower(), this.password, this.bestScore, this.dateOfBirth.Date, this.city.ToLower(),
+                this.state.ToLower(), this.county.ToLower(), this.diagnosis.ToLower());
         }
 
         //Takes the user's current information and saves the information in the appropriate txt file.
         public void SaveUserData()
         {
-            string SaveInfo = String.Format("{0},{1},{2},{3},{4},{5},{6},{7}",
+            this.saveInfo = String.Format("{0},{1},{2},{3},{4},{5},{6},{7}",
                 this.userName.ToLower(), this.password, this.bestScore, this.dateOfBirth.Date, this.city.ToLower(),
                 this.state.ToLower(), this.county.ToLower(), this.diagnosis.ToLower());
 
@@ -137,7 +150,7 @@ namespace cmaftei_Corsi_Span
 
             using (StreamWriter sw = File.AppendText(loadInfoDestination))
             {
-                sw.WriteLine(SaveInfo);
+                sw.WriteLine(this.saveInfo);
             }
         }
 
@@ -169,26 +182,22 @@ namespace cmaftei_Corsi_Span
         }
 
         //NEEDS TO BE TESTED
-        private void updateAssignment()
+        private void updateUserScores()
         {
-            //Still Needed
-            string assignmentsLocation = AppDomain.CurrentDomain.BaseDirectory + @"textFileBackups/assignment_backUps.txt";
-            string tempFile = AppDomain.CurrentDomain.BaseDirectory + @"textFileBackups/tempFile.txt";
+            //File.Create(AppDomain.CurrentDomain.BaseDirectory + @"playerInfo/tempFile.txt");
+            string loadPlayerLocation = AppDomain.CurrentDomain.BaseDirectory + @"playerInfo/loadPlayers.txt";
+            string tempFile = AppDomain.CurrentDomain.BaseDirectory + @"playerInfo/tempFile.txt";
 
             //For this to be correct with the database, we consistently need to update the DB as we make changes.
-            //Might want to to make the update function a private function, and place it into each setter.
-            string SaveInfo = String.Format("{0},{1},{2},{3},{4},{5},{6},{7}",
-                this.userName.ToLower(), this.password, this.bestScore, this.dateOfBirth.Date, this.city.ToLower(),
-                this.state.ToLower(), this.county.ToLower(), this.diagnosis.ToLower());
+            //Might want to to make the update function a private function, and place it into each setter
 
-
-            using (var sr = new StreamReader(assignmentsLocation))
+            using (var sr = new StreamReader(loadPlayerLocation))
             using (var sw = new StreamWriter(tempFile))
             {
                 string line;
                 while ((line = sr.ReadLine()) != null)
                 {
-                    if (line != SaveInfo)
+                    if (line != this.saveInfo)
                     {
                         //If line isn't the one that needs to be updated, then no revision needed
                         sw.WriteLine(line);
@@ -196,15 +205,19 @@ namespace cmaftei_Corsi_Span
                     else
                     {
                         //If line is the one that needs to be updated, then create revision
-                        SaveInfo = String.Format("{0},{1},{2},{3},{4},{5},{6},{7}",
-                this.userName.ToLower(), this.password, this.bestScore, this.dateOfBirth.Date, this.city.ToLower(),
-                this.state.ToLower(), this.county.ToLower(), this.diagnosis.ToLower());
-                        sw.WriteLine(SaveInfo);
+                        this.saveInfo = String.Format("{0},{1},{2},{3},{4},{5},{6},{7}",
+                            this.userName.ToLower(), this.password, this.bestScore, this.dateOfBirth.Date, this.city.ToLower(),
+                            this.state.ToLower(), this.county.ToLower(), this.diagnosis.ToLower());
+                        sw.WriteLine(saveInfo);
                     }
                 }
             }
-            File.Delete("file.txt");
-            File.Move(tempFile, "file.txt");
+            //Removes content in Score Location
+            File.Delete(loadPlayerLocation);
+            //Transfers temp content into Score Location
+            File.Copy(tempFile, loadPlayerLocation);
+            //Removes content in tempFile
+            File.WriteAllText(tempFile, string.Empty);
         }
 
         //MOVE TO UI CLASS. MIGHT MAKE OWN CLASS. Checks if user already exists. If so, goes back to UI to send message 

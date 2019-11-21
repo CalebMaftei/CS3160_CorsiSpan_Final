@@ -352,6 +352,7 @@ namespace cmaftei_Corsi_Span
                     info = line.Split(',');
                     Player player = new Player(info[0], info[1], Int32.Parse(info[2]), DateTime.Parse(info[3]),
                         info[4], info[5], info[6], info[7]);
+                    player.resetSaveInfo();
                     players.Add(player);
                 }
             }

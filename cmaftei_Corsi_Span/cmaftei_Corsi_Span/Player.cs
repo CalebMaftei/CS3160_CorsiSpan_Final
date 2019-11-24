@@ -158,8 +158,11 @@ namespace cmaftei_Corsi_Span
 
         public void SetBestScore(int bestScore)
         {
-            this.bestScore = bestScore;
-            UpdatePlayerInfo();
+            if(this.bestScore < bestScore)
+            {
+                this.bestScore = bestScore;
+                UpdatePlayerInfo();
+            }
         }
 
         public void SetScoreHistory(List<int> scoreHistory)
@@ -168,7 +171,7 @@ namespace cmaftei_Corsi_Span
         }
 
         //Resets the saveInfo of the active player
-        public void resetSaveInfo()
+        public void ResetSaveInfo()
         {
             this.saveInfo = String.Format("{0},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10},{11},{12},{13},{14},{15},{16},{17}",
                 this.userName.ToLower(), this.password, this.bestScore, this.scoreHistory[0], this.scoreHistory[1],
@@ -201,13 +204,7 @@ namespace cmaftei_Corsi_Span
             string assignmentsLocation = AppDomain.CurrentDomain.BaseDirectory + @"playerInfo/loadPlayers.txt";
             string tempFile = AppDomain.CurrentDomain.BaseDirectory + @"playerInfo/tempFile.txt";
 
-            //For this to be correct with the database, we consistently need to update the DB as we make changes.
-            //Might want to to make the update function a private function, and place it into each setter.
-            this.saveInfo = String.Format("{0},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10},{11},{12},{13},{14},{15},{16},{17}",
-                this.userName.ToLower(), this.password, this.bestScore, this.scoreHistory[0], this.scoreHistory[1],
-                this.scoreHistory[2], this.scoreHistory[3], this.scoreHistory[4], this.scoreHistory[5], this.scoreHistory[6],
-                this.scoreHistory[7], this.scoreHistory[8], this.scoreHistory[9], this.dateOfBirth.Date, this.city.ToLower(),
-                this.state.ToLower(), this.county.ToLower(), this.diagnosis.ToLower());
+            ResetSaveInfo();
 
             using (var sr = new StreamReader(assignmentsLocation))
             using (var sw = new StreamWriter(tempFile))
@@ -225,7 +222,7 @@ namespace cmaftei_Corsi_Span
         }
 
         //Updates player information whenever contents change.
-        private void UpdatePlayerInfo()
+        public void UpdatePlayerInfo()
         {
             //File.Create(AppDomain.CurrentDomain.BaseDirectory + @"playerInfo/tempFile.txt");
             string loadPlayerLocation = AppDomain.CurrentDomain.BaseDirectory + @"playerInfo/loadPlayers.txt";
@@ -248,11 +245,7 @@ namespace cmaftei_Corsi_Span
                     else
                     {
                         //If line is the one that needs to be updated, then create revision
-                        this.saveInfo = String.Format("{0},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10},{11},{12},{13},{14},{15},{16},{17}",
-                         this.userName.ToLower(), this.password, this.bestScore, this.scoreHistory[0], this.scoreHistory[1],
-                         this.scoreHistory[2], this.scoreHistory[3], this.scoreHistory[4], this.scoreHistory[5], this.scoreHistory[6],
-                         this.scoreHistory[7], this.scoreHistory[8], this.scoreHistory[9], this.dateOfBirth.Date, this.city.ToLower(),
-                         this.state.ToLower(), this.county.ToLower(), this.diagnosis.ToLower());
+                        ResetSaveInfo();
                         sw.WriteLine(saveInfo);
                     }
                 }

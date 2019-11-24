@@ -11,7 +11,7 @@ namespace cmaftei_Corsi_Span
     {
         private List<int> systemSequence = new List<int>();
         private List<int> userSequence = new List<int>();
-        private Color activeBlockColor = Color.Maroon;
+        private Color activeBlockColor = Color.White;
         private string gameMode;
 
         //getters

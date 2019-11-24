@@ -179,13 +179,17 @@ namespace cmaftei_Corsi_Span
         //logs player out. Saves score value if score is higher then current bestScore. Brings user to main screen.
         private void button_game_logout_Click(object sender, EventArgs e)
         {
-            //Need to save changes for active player if that happened.
-                //Look into replacing text file contents with new contents as there does not exist (check again) a delete
-                //method for stream writer.
-            if(currentLevel > activePlayer.GetBestScore())
-            {
-                activePlayer.SetBestScore(currentLevel);
-            }
+            phm = new PlayerHistoryManager(activePlayer.GetUserName());
+
+            //On logout, checks if session should replace any values in user's scoreHistory. 
+            activePlayer.SetScoreHistory(phm.UserHistoryUpdate(currentLevel, activePlayer.GetScoreHistory()));
+            //Updates the file regardless if scores changed or not.
+            activePlayer.UpdatePlayerInfo();
+            //Sends high score from scoreHistory to user's best score. If high score is > best score, best score is overwritten, and file is updated.
+            activePlayer.SetBestScore(activePlayer.GetScoreHistory()[0]);
+
+            MessageBox.Show("THANK YOU!");
+            MessageBox.Show("\t\t\tYour new History is:\n" + phm.ProduceUserHistory(activePlayer.GetScoreHistory()));
 
             //Reset the level for the next player who logs in.
             currentLevel = 2;
@@ -205,61 +209,19 @@ namespace cmaftei_Corsi_Span
             MessageBox.Show(String.Format("SCOREBOARD:\n{0}",scoreBoard.ToString())); //Maybe switch this is for a form of some sort to style scoreboard
         }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        /// <summary>
-        /// CHANGING THIS TO EDIT 10 VALUES, THEN DISPLAY THE 10 VALUES. MIGHT MAKE A CLASS
-        /// </summary>
-
+        //Shows User their Current Score, as well as their top 10 sessions. Updates do not happen here. That is when the player logs out.
         private void button_game_viewUserHistory_Click(object sender, EventArgs e)
         {
             string display = String.Format(
                 "===========================================\n" +
-                "||\t\tCURRENT SESSION SCORE:     {0}\t\t||\n" +
-                "===========================================\n", currentLevel);
+                "||\t\tCURRENT SESSION SCORE:     {0}\t\t||\n", currentLevel);
             //manages scores of player history
             phm = new PlayerHistoryManager(activePlayer.GetUserName());
 
             display += phm.ProduceUserHistory(activePlayer.GetScoreHistory());
 
-
-
             MessageBox.Show(display);
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
         //Generates the sequence to prompt the user. Also decides the game mode.
         private void button_game_startRound_Click(object sender, EventArgs e)
@@ -401,7 +363,7 @@ namespace cmaftei_Corsi_Span
                         , Int32.Parse(info[10]), Int32.Parse(info[11]), Int32.Parse(info[12])}
                         , DateTime.Parse(info[13]),
                         info[14], info[15], info[16], info[17]);
-                    player.resetSaveInfo();
+                    player.ResetSaveInfo();
                     players.Add(player);
                 }
             }

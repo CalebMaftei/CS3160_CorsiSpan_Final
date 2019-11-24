@@ -18,6 +18,7 @@ namespace cmaftei_Corsi_Span
         Block[] blocks = new Block[9];
         Button[] blockButtons = new Button[9];
         Scoreboard scoreBoard = new Scoreboard();
+        PlayerHistoryManager phm;
         Sequence sequence = new Sequence();
         Player activePlayer;
         int currentLevel = 2;
@@ -204,19 +205,61 @@ namespace cmaftei_Corsi_Span
             MessageBox.Show(String.Format("SCOREBOARD:\n{0}",scoreBoard.ToString())); //Maybe switch this is for a form of some sort to style scoreboard
         }
 
-        //??? Currently just shows what is the highest score for the current user. 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        /// <summary>
+        /// CHANGING THIS TO EDIT 10 VALUES, THEN DISPLAY THE 10 VALUES. MIGHT MAKE A CLASS
+        /// </summary>
+
         private void button_game_viewUserHistory_Click(object sender, EventArgs e)
         {
-            //Need guidance on this right now. Should I show a messageBox with current highScore, or highScore and last Time
-            //Played?
-            if (currentLevel > activePlayer.GetBestScore())
-            {
-                activePlayer.SetBestScore(currentLevel);
-            }
-            MessageBox.Show(String.Format("Current High Score for {0}:\t{1}", 
-                activePlayer.GetUserName(), 
-                activePlayer.GetBestScore()));
+            string display = String.Format(
+                "===========================================\n" +
+                "||\t\tCURRENT SESSION SCORE:     {0}\t\t||\n" +
+                "===========================================\n", currentLevel);
+            //manages scores of player history
+            phm = new PlayerHistoryManager(activePlayer.GetUserName());
+
+            display += phm.ProduceUserHistory(activePlayer.GetScoreHistory());
+
+
+
+            MessageBox.Show(display);
         }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         //Generates the sequence to prompt the user. Also decides the game mode.
         private void button_game_startRound_Click(object sender, EventArgs e)
@@ -350,8 +393,14 @@ namespace cmaftei_Corsi_Span
                 while ((line = sr.ReadLine()) != null)
                 {
                     info = line.Split(',');
-                    Player player = new Player(info[0], info[1], Int32.Parse(info[2]), DateTime.Parse(info[3]),
-                        info[4], info[5], info[6], info[7]);
+
+                    Player player = new Player(
+                        info[0], info[1], Int32.Parse(info[2])
+                        , new List<int> { Int32.Parse(info[3]), Int32.Parse(info[4]), Int32.Parse(info[5])
+                        , Int32.Parse(info[6]), Int32.Parse(info[7]), Int32.Parse(info[8]), Int32.Parse(info[9])
+                        , Int32.Parse(info[10]), Int32.Parse(info[11]), Int32.Parse(info[12])}
+                        , DateTime.Parse(info[13]),
+                        info[14], info[15], info[16], info[17]);
                     player.resetSaveInfo();
                     players.Add(player);
                 }

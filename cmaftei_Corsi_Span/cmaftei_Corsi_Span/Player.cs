@@ -16,10 +16,11 @@ namespace cmaftei_Corsi_Span
         private string county;
         private string diagnosis;
         private int bestScore;
+        private List<int> scoreHistory;
         private string saveInfo;
 
         //location for saved data
-        private string loadInfoDestination = AppDomain.CurrentDomain.BaseDirectory + @"playerInfo/loadPlayers.txt";
+        private readonly string loadInfoDestination = AppDomain.CurrentDomain.BaseDirectory + @"playerInfo/loadPlayers.txt";
 
         //0 param constructor... potentially do not need this.
         public Player()
@@ -27,9 +28,9 @@ namespace cmaftei_Corsi_Span
             //No param constructor
         }
 
-        //All Param Constructor
+        //Constructor meant for making a brand new player
         public Player(
-            string newUserName, string newPassword, int newBestScore, DateTime newDOB, 
+            string newUserName, string newPassword, int newBestScore, DateTime newDOB,
             string newCity, string newState, string newCounty, string newDiagnosis
             )
         {
@@ -37,13 +38,39 @@ namespace cmaftei_Corsi_Span
             this.password = newPassword;
             this.adminValue = false;
             this.bestScore = newBestScore;
+            this.scoreHistory = new List<int>{0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
             this.dateOfBirth = newDOB;
             this.city = newCity;
             this.state = newState;
             this.county = newCounty;
             this.diagnosis = newDiagnosis;
-            this.saveInfo = String.Format("{0},{1},{2},{3},{4},{5},{6},{7}",
-                this.userName.ToLower(), this.password, this.bestScore, this.dateOfBirth.Date, this.city.ToLower(),
+            this.saveInfo = String.Format("{0},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10},{11},{12},{13},{14},{15},{16},{17}",
+                this.userName.ToLower(), this.password, this.bestScore, this.scoreHistory[0], this.scoreHistory[1],
+                this.scoreHistory[2], this.scoreHistory[3], this.scoreHistory[4], this.scoreHistory[5], this.scoreHistory[6],
+                this.scoreHistory[7], this.scoreHistory[8], this.scoreHistory[9], this.dateOfBirth.Date, this.city.ToLower(),
+                this.state.ToLower(), this.county.ToLower(), this.diagnosis.ToLower());
+        }
+
+        //All Param Constructor
+        public Player(
+            string newUserName, string newPassword, int newBestScore, List<int> scoreHistory, DateTime newDOB, 
+            string newCity, string newState, string newCounty, string newDiagnosis
+            )
+        {
+            this.userName = newUserName;
+            this.password = newPassword;
+            this.adminValue = false;
+            this.bestScore = newBestScore;
+            this.scoreHistory = scoreHistory;
+            this.dateOfBirth = newDOB;
+            this.city = newCity;
+            this.state = newState;
+            this.county = newCounty;
+            this.diagnosis = newDiagnosis;
+            this.saveInfo = String.Format("{0},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10},{11},{12},{13},{14},{15},{16},{17}",
+                this.userName.ToLower(), this.password, this.bestScore, this.scoreHistory[0], this.scoreHistory[1],
+                this.scoreHistory[2], this.scoreHistory[3], this. scoreHistory[4], this.scoreHistory[5], this.scoreHistory[6],
+                this.scoreHistory[7], this.scoreHistory[8], this.scoreHistory[9], this.dateOfBirth.Date, this.city.ToLower(),
                 this.state.ToLower(), this.county.ToLower(), this.diagnosis.ToLower());
         }
 
@@ -88,6 +115,11 @@ namespace cmaftei_Corsi_Span
             return this.bestScore;
         }
 
+        public List<int> GetScoreHistory()
+        {
+            return this.scoreHistory;
+        }
+
         //setters
         public void SetUserName(string newUserName)
         {
@@ -127,22 +159,31 @@ namespace cmaftei_Corsi_Span
         public void SetBestScore(int bestScore)
         {
             this.bestScore = bestScore;
-            //resetSaveInfo();
-            updateUserScores();
+            UpdatePlayerInfo();
         }
 
+        public void SetScoreHistory(List<int> scoreHistory)
+        {
+            this.scoreHistory = scoreHistory;
+        }
+
+        //Resets the saveInfo of the active player
         public void resetSaveInfo()
         {
-            this.saveInfo = String.Format("{0},{1},{2},{3},{4},{5},{6},{7}",
-                this.userName.ToLower(), this.password, this.bestScore, this.dateOfBirth.Date, this.city.ToLower(),
+            this.saveInfo = String.Format("{0},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10},{11},{12},{13},{14},{15},{16},{17}",
+                this.userName.ToLower(), this.password, this.bestScore, this.scoreHistory[0], this.scoreHistory[1],
+                this.scoreHistory[2], this.scoreHistory[3], this.scoreHistory[4], this.scoreHistory[5], this.scoreHistory[6],
+                this.scoreHistory[7], this.scoreHistory[8], this.scoreHistory[9], this.dateOfBirth.Date, this.city.ToLower(),
                 this.state.ToLower(), this.county.ToLower(), this.diagnosis.ToLower());
         }
 
         //Takes the user's current information and saves the information in the appropriate txt file.
         public void SaveUserData()
         {
-            this.saveInfo = String.Format("{0},{1},{2},{3},{4},{5},{6},{7}",
-                this.userName.ToLower(), this.password, this.bestScore, this.dateOfBirth.Date, this.city.ToLower(),
+            this.saveInfo = String.Format("{0},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10},{11},{12},{13},{14},{15},{16},{17}",
+                this.userName.ToLower(), this.password, this.bestScore, this.scoreHistory[0], this.scoreHistory[1],
+                this.scoreHistory[2], this.scoreHistory[3], this.scoreHistory[4], this.scoreHistory[5], this.scoreHistory[6],
+                this.scoreHistory[7], this.scoreHistory[8], this.scoreHistory[9], this.dateOfBirth.Date, this.city.ToLower(),
                 this.state.ToLower(), this.county.ToLower(), this.diagnosis.ToLower());
 
             //Find way to update appropriate info when scores are changed
@@ -154,16 +195,18 @@ namespace cmaftei_Corsi_Span
             }
         }
 
-        //NEEDS TO BE TESTED
-        public void deleteAssignment()
+        //NEEDS TO BE TESTED : Can't be tested until Admin page is made.
+        public void DeletePlayer()
         {
-            string assignmentsLocation = AppDomain.CurrentDomain.BaseDirectory + @"textFileBackups/assignment_backUps.txt";
-            string tempFile = AppDomain.CurrentDomain.BaseDirectory + @"textFileBackups/tempFile.txt";
+            string assignmentsLocation = AppDomain.CurrentDomain.BaseDirectory + @"playerInfo/loadPlayers.txt";
+            string tempFile = AppDomain.CurrentDomain.BaseDirectory + @"playerInfo/tempFile.txt";
 
             //For this to be correct with the database, we consistently need to update the DB as we make changes.
             //Might want to to make the update function a private function, and place it into each setter.
-            string SaveInfo = String.Format("{0},{1},{2},{3},{4},{5},{6},{7}",
-                this.userName.ToLower(), this.password, this.bestScore, this.dateOfBirth.Date, this.city.ToLower(),
+            this.saveInfo = String.Format("{0},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10},{11},{12},{13},{14},{15},{16},{17}",
+                this.userName.ToLower(), this.password, this.bestScore, this.scoreHistory[0], this.scoreHistory[1],
+                this.scoreHistory[2], this.scoreHistory[3], this.scoreHistory[4], this.scoreHistory[5], this.scoreHistory[6],
+                this.scoreHistory[7], this.scoreHistory[8], this.scoreHistory[9], this.dateOfBirth.Date, this.city.ToLower(),
                 this.state.ToLower(), this.county.ToLower(), this.diagnosis.ToLower());
 
             using (var sr = new StreamReader(assignmentsLocation))
@@ -172,17 +215,17 @@ namespace cmaftei_Corsi_Span
                 string line;
                 while ((line = sr.ReadLine()) != null)
                 {
-                    if (line != SaveInfo)
+                    if (line != this.saveInfo)
                         sw.WriteLine(line);
                 }
             }
 
-            File.Delete("file.txt");
-            File.Move(tempFile, "file.txt");
+            File.Delete(assignmentsLocation);
+            File.Move(tempFile, assignmentsLocation);
         }
 
-        //NEEDS TO BE TESTED
-        private void updateUserScores()
+        //Updates player information whenever contents change.
+        private void UpdatePlayerInfo()
         {
             //File.Create(AppDomain.CurrentDomain.BaseDirectory + @"playerInfo/tempFile.txt");
             string loadPlayerLocation = AppDomain.CurrentDomain.BaseDirectory + @"playerInfo/loadPlayers.txt";
@@ -205,9 +248,11 @@ namespace cmaftei_Corsi_Span
                     else
                     {
                         //If line is the one that needs to be updated, then create revision
-                        this.saveInfo = String.Format("{0},{1},{2},{3},{4},{5},{6},{7}",
-                            this.userName.ToLower(), this.password, this.bestScore, this.dateOfBirth.Date, this.city.ToLower(),
-                            this.state.ToLower(), this.county.ToLower(), this.diagnosis.ToLower());
+                        this.saveInfo = String.Format("{0},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10},{11},{12},{13},{14},{15},{16},{17}",
+                         this.userName.ToLower(), this.password, this.bestScore, this.scoreHistory[0], this.scoreHistory[1],
+                         this.scoreHistory[2], this.scoreHistory[3], this.scoreHistory[4], this.scoreHistory[5], this.scoreHistory[6],
+                         this.scoreHistory[7], this.scoreHistory[8], this.scoreHistory[9], this.dateOfBirth.Date, this.city.ToLower(),
+                         this.state.ToLower(), this.county.ToLower(), this.diagnosis.ToLower());
                         sw.WriteLine(saveInfo);
                     }
                 }

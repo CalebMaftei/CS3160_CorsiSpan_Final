@@ -242,7 +242,7 @@ namespace cmaftei_Corsi_Span
                     if (line != this.saveInfo)
                     {
                         //If line isn't the one that needs to be updated, then no revision needed
-                        sw.WriteLine(line);
+                        sw.WriteLine(xorEncrypt.EncryptDecrypt(line,307));
                     }
                     else
                     {
@@ -269,7 +269,7 @@ namespace cmaftei_Corsi_Span
                 string line;
                 string[] playerInfo;
 
-                while ((line = sr.ReadLine()) != null)
+                while ((line = xorEncrypt.EncryptDecrypt(sr.ReadLine(),307)) != null)
                 {
                     playerInfo = line.Split(',');
 

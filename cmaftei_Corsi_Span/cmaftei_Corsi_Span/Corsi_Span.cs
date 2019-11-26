@@ -357,6 +357,7 @@ namespace cmaftei_Corsi_Span
             {
                 string line;
                 string[] info;
+                //while ((line = xorEncrypt.EncryptDecrypt(sr.ReadLine(),307)) != null)
                 while ((line = xorEncrypt.EncryptDecrypt(sr.ReadLine(),307)) != null)
                 {
                     info = line.Split(',');
@@ -368,6 +369,7 @@ namespace cmaftei_Corsi_Span
                         , Int32.Parse(info[10]), Int32.Parse(info[11]), Int32.Parse(info[12])}
                         , DateTime.Parse(info[13]),
                         info[14], info[15], info[16], info[17]);
+
                     player.ResetSaveInfo();
                     players.Add(player);
                 }

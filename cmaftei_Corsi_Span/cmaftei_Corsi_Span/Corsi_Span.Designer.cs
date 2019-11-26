@@ -65,15 +65,15 @@
             this.label_game_mode = new System.Windows.Forms.Label();
             this.label_game_currentPlayer = new System.Windows.Forms.Label();
             this.panel_gameBoard = new System.Windows.Forms.Panel();
-            this.button_block1 = new System.Windows.Forms.Button();
-            this.button_block2 = new System.Windows.Forms.Button();
-            this.button_block3 = new System.Windows.Forms.Button();
-            this.button_block4 = new System.Windows.Forms.Button();
-            this.button_block5 = new System.Windows.Forms.Button();
-            this.button_block6 = new System.Windows.Forms.Button();
-            this.button_block7 = new System.Windows.Forms.Button();
-            this.button_block8 = new System.Windows.Forms.Button();
             this.button_block9 = new System.Windows.Forms.Button();
+            this.button_block8 = new System.Windows.Forms.Button();
+            this.button_block7 = new System.Windows.Forms.Button();
+            this.button_block6 = new System.Windows.Forms.Button();
+            this.button_block5 = new System.Windows.Forms.Button();
+            this.button_block4 = new System.Windows.Forms.Button();
+            this.button_block3 = new System.Windows.Forms.Button();
+            this.button_block2 = new System.Windows.Forms.Button();
+            this.button_block1 = new System.Windows.Forms.Button();
             this.panel_TitleScreen.SuspendLayout();
             this.panel_SignUp.SuspendLayout();
             this.panel_Game.SuspendLayout();
@@ -518,61 +518,13 @@
             this.panel_gameBoard.Size = new System.Drawing.Size(934, 667);
             this.panel_gameBoard.TabIndex = 2;
             // 
-            // button_block1
+            // button_block9
             // 
-            this.button_block1.Location = new System.Drawing.Point(20, 20);
-            this.button_block1.Name = "button_block1";
-            this.button_block1.Size = new System.Drawing.Size(60, 60);
-            this.button_block1.TabIndex = 0;
-            this.button_block1.UseVisualStyleBackColor = true;
-            // 
-            // button_block2
-            // 
-            this.button_block2.Location = new System.Drawing.Point(120, 20);
-            this.button_block2.Name = "button_block2";
-            this.button_block2.Size = new System.Drawing.Size(60, 60);
-            this.button_block2.TabIndex = 1;
-            this.button_block2.UseVisualStyleBackColor = true;
-            // 
-            // button_block3
-            // 
-            this.button_block3.Location = new System.Drawing.Point(220, 20);
-            this.button_block3.Name = "button_block3";
-            this.button_block3.Size = new System.Drawing.Size(60, 60);
-            this.button_block3.TabIndex = 2;
-            this.button_block3.UseVisualStyleBackColor = true;
-            // 
-            // button_block4
-            // 
-            this.button_block4.Location = new System.Drawing.Point(320, 20);
-            this.button_block4.Name = "button_block4";
-            this.button_block4.Size = new System.Drawing.Size(60, 60);
-            this.button_block4.TabIndex = 3;
-            this.button_block4.UseVisualStyleBackColor = true;
-            // 
-            // button_block5
-            // 
-            this.button_block5.Location = new System.Drawing.Point(420, 20);
-            this.button_block5.Name = "button_block5";
-            this.button_block5.Size = new System.Drawing.Size(60, 60);
-            this.button_block5.TabIndex = 4;
-            this.button_block5.UseVisualStyleBackColor = true;
-            // 
-            // button_block6
-            // 
-            this.button_block6.Location = new System.Drawing.Point(520, 20);
-            this.button_block6.Name = "button_block6";
-            this.button_block6.Size = new System.Drawing.Size(60, 60);
-            this.button_block6.TabIndex = 5;
-            this.button_block6.UseVisualStyleBackColor = true;
-            // 
-            // button_block7
-            // 
-            this.button_block7.Location = new System.Drawing.Point(620, 20);
-            this.button_block7.Name = "button_block7";
-            this.button_block7.Size = new System.Drawing.Size(60, 60);
-            this.button_block7.TabIndex = 6;
-            this.button_block7.UseVisualStyleBackColor = true;
+            this.button_block9.Location = new System.Drawing.Point(820, 20);
+            this.button_block9.Name = "button_block9";
+            this.button_block9.Size = new System.Drawing.Size(60, 60);
+            this.button_block9.TabIndex = 8;
+            this.button_block9.UseVisualStyleBackColor = true;
             // 
             // button_block8
             // 
@@ -582,22 +534,70 @@
             this.button_block8.TabIndex = 7;
             this.button_block8.UseVisualStyleBackColor = true;
             // 
-            // button_block9
+            // button_block7
             // 
-            this.button_block9.Location = new System.Drawing.Point(820, 20);
-            this.button_block9.Name = "button_block9";
-            this.button_block9.Size = new System.Drawing.Size(60, 60);
-            this.button_block9.TabIndex = 8;
-            this.button_block9.UseVisualStyleBackColor = true;
+            this.button_block7.Location = new System.Drawing.Point(620, 20);
+            this.button_block7.Name = "button_block7";
+            this.button_block7.Size = new System.Drawing.Size(60, 60);
+            this.button_block7.TabIndex = 6;
+            this.button_block7.UseVisualStyleBackColor = true;
+            // 
+            // button_block6
+            // 
+            this.button_block6.Location = new System.Drawing.Point(520, 20);
+            this.button_block6.Name = "button_block6";
+            this.button_block6.Size = new System.Drawing.Size(60, 60);
+            this.button_block6.TabIndex = 5;
+            this.button_block6.UseVisualStyleBackColor = true;
+            // 
+            // button_block5
+            // 
+            this.button_block5.Location = new System.Drawing.Point(420, 20);
+            this.button_block5.Name = "button_block5";
+            this.button_block5.Size = new System.Drawing.Size(60, 60);
+            this.button_block5.TabIndex = 4;
+            this.button_block5.UseVisualStyleBackColor = true;
+            // 
+            // button_block4
+            // 
+            this.button_block4.Location = new System.Drawing.Point(320, 20);
+            this.button_block4.Name = "button_block4";
+            this.button_block4.Size = new System.Drawing.Size(60, 60);
+            this.button_block4.TabIndex = 3;
+            this.button_block4.UseVisualStyleBackColor = true;
+            // 
+            // button_block3
+            // 
+            this.button_block3.Location = new System.Drawing.Point(220, 20);
+            this.button_block3.Name = "button_block3";
+            this.button_block3.Size = new System.Drawing.Size(60, 60);
+            this.button_block3.TabIndex = 2;
+            this.button_block3.UseVisualStyleBackColor = true;
+            // 
+            // button_block2
+            // 
+            this.button_block2.Location = new System.Drawing.Point(120, 20);
+            this.button_block2.Name = "button_block2";
+            this.button_block2.Size = new System.Drawing.Size(60, 60);
+            this.button_block2.TabIndex = 1;
+            this.button_block2.UseVisualStyleBackColor = true;
+            // 
+            // button_block1
+            // 
+            this.button_block1.Location = new System.Drawing.Point(20, 20);
+            this.button_block1.Name = "button_block1";
+            this.button_block1.Size = new System.Drawing.Size(60, 60);
+            this.button_block1.TabIndex = 0;
+            this.button_block1.UseVisualStyleBackColor = true;
             // 
             // Corsi_Span
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1252, 691);
-            this.Controls.Add(this.panel_Game);
             this.Controls.Add(this.panel_TitleScreen);
             this.Controls.Add(this.panel_SignUp);
+            this.Controls.Add(this.panel_Game);
             this.Name = "Corsi_Span";
             this.Text = "Corsi Span";
             this.panel_TitleScreen.ResumeLayout(false);

@@ -18,6 +18,8 @@ namespace cmaftei_Corsi_Span
         private int bestScore;
         private List<int> scoreHistory;
         private string saveInfo;
+        private string trackerLog;
+        private XOR_Encryption xorEncrypt = new XOR_Encryption();
 
         //location for saved data
         private readonly string loadInfoDestination = AppDomain.CurrentDomain.BaseDirectory + @"playerInfo/loadPlayers.txt";
@@ -194,7 +196,7 @@ namespace cmaftei_Corsi_Span
 
             using (StreamWriter sw = File.AppendText(loadInfoDestination))
             {
-                sw.WriteLine(this.saveInfo);
+                sw.WriteLine(xorEncrypt.EncryptDecrypt(this.saveInfo, 307));
             }
         }
 
@@ -235,7 +237,7 @@ namespace cmaftei_Corsi_Span
             using (var sw = new StreamWriter(tempFile))
             {
                 string line;
-                while ((line = sr.ReadLine()) != null)
+                while ((line = xorEncrypt.EncryptDecrypt(sr.ReadLine(),307)) != null)
                 {
                     if (line != this.saveInfo)
                     {
@@ -246,7 +248,7 @@ namespace cmaftei_Corsi_Span
                     {
                         //If line is the one that needs to be updated, then create revision
                         ResetSaveInfo();
-                        sw.WriteLine(saveInfo);
+                        sw.WriteLine(xorEncrypt.EncryptDecrypt(this.saveInfo, 307));
                     }
                 }
             }

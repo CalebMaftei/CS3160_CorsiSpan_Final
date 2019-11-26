@@ -14,15 +14,17 @@ namespace cmaftei_Corsi_Span
 {
     public partial class Corsi_Span : Form
     {
-        List<Player> players = new List<Player>();
-        Block[] blocks = new Block[9];
-        Button[] blockButtons = new Button[9];
-        Scoreboard scoreBoard = new Scoreboard();
-        PlayerHistoryManager phm;
-        Sequence sequence = new Sequence();
-        Player activePlayer;
-        int currentLevel = 2;
-        string gameMode = "normal";
+        private List<Player> players = new List<Player>();
+        private Block[] blocks = new Block[9];
+        private Button[] blockButtons = new Button[9];
+        private Scoreboard scoreBoard = new Scoreboard();
+        private PlayerHistoryManager phm;
+        private Sequence sequence = new Sequence();
+        private Player activePlayer;
+        private int currentLevel = 2;
+        private string gameMode = "normal";
+        private XOR_Encryption xorEncrypt = new XOR_Encryption();
+        private const int encryptionKey = 307;
 
         public Corsi_Span()
         {
@@ -183,9 +185,12 @@ namespace cmaftei_Corsi_Span
 
             //On logout, checks if session should replace any values in user's scoreHistory. 
             activePlayer.SetScoreHistory(phm.UserHistoryUpdate(currentLevel, activePlayer.GetScoreHistory()));
+
             //Updates the file regardless if scores changed or not.
             activePlayer.UpdatePlayerInfo();
-            //Sends high score from scoreHistory to user's best score. If high score is > best score, best score is overwritten, and file is updated.
+
+            //Sends high score from scoreHistory to user's best score. If high score is > best score,
+            //best score is overwritten, and file is updated.
             activePlayer.SetBestScore(activePlayer.GetScoreHistory()[0]);
 
             MessageBox.Show("THANK YOU!");
@@ -352,7 +357,7 @@ namespace cmaftei_Corsi_Span
             {
                 string line;
                 string[] info;
-                while ((line = sr.ReadLine()) != null)
+                while ((line = xorEncrypt.EncryptDecrypt(sr.ReadLine(),307)) != null)
                 {
                     info = line.Split(',');
 
@@ -412,7 +417,7 @@ namespace cmaftei_Corsi_Span
             {
                 string line;
                 string[] info;
-                while ((line = sr.ReadLine()) != null)
+                while ((line = xorEncrypt.EncryptDecrypt(sr.ReadLine(),307)) != null)
                 {
                     info = line.Split(',');
                     if (info[0] == user.ToLower() && info[1] == pass)
@@ -423,6 +428,5 @@ namespace cmaftei_Corsi_Span
             }
             return true; //if login doesn't match anything in DB, then failed attempt.
         }
-
     }
 }

@@ -55,6 +55,7 @@
       <DependentUpon>Corsi_Span.cs</DependentUpon>
     </Compile>
     <Compile Include="Encrypt.cs" />
+    <Compile Include="XOR_Encryption.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="PlayerHistoryManager.cs" />
     <Compile Include="Program.cs" />

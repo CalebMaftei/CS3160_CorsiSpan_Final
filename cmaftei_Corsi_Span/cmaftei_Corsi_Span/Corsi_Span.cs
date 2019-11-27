@@ -22,6 +22,7 @@ namespace cmaftei_Corsi_Span
         private Sequence sequence = new Sequence();
         private Player activePlayer;
         private Admin admin;
+        private Tracker tracker;
         private int currentLevel = 2;
         private string gameMode = "normal";
         private XOR_Encryption xorEncrypt = new XOR_Encryption();
@@ -95,6 +96,7 @@ namespace cmaftei_Corsi_Span
                         if (textBox_usernameEntry.Text.ToLower() == p.GetUserName())
                         {
                             activePlayer = p;
+                            tracker = new Tracker(activePlayer);
                             break;
                         }
                     }
@@ -108,6 +110,7 @@ namespace cmaftei_Corsi_Span
                 }
                 textBox_usernameEntry.Text = "";
                 textBox_passwordEntry.Text = "";
+                tracker.LogStartMessage();
             }
         }
 
@@ -215,11 +218,14 @@ namespace cmaftei_Corsi_Span
             label_game_score.Text = "SCORE/LEVEL : " + currentLevel.ToString();
             panel_TitleScreen.Visible = true;
             panel_Game.Visible = false;
+
+            tracker.LogEndMessage();
         }
 
         //Iterates through players to find highest score.
         private void button_game_checkScoreboard_Click(object sender, EventArgs e)
         {
+            tracker.LogScoreBoardCheckMessage();
             if (currentLevel > activePlayer.GetBestScore())
             {
                 activePlayer.SetBestScore(currentLevel);
@@ -231,6 +237,7 @@ namespace cmaftei_Corsi_Span
         //Shows User their Current Score, as well as their top 10 sessions. Updates do not happen here. That is when the player logs out.
         private void button_game_viewUserHistory_Click(object sender, EventArgs e)
         {
+            tracker.LogUserHistoryCheckMessage();
             string display = String.Format(
                 "===========================================\n" +
                 "||\t\tCURRENT SESSION SCORE:     {0}\t\t||\n", currentLevel);
@@ -245,6 +252,8 @@ namespace cmaftei_Corsi_Span
         //Generates the sequence to prompt the user. Also decides the game mode.
         private void button_game_startRound_Click(object sender, EventArgs e)
         {
+            tracker.LogSequenceStartMessage();
+
             MessageBox.Show("Starting the round! REMINDER: The Sequence is the cubes that go dark red! " +
                 "Click them at the end of the sequnce!");
             //Disable all buttons to prevent disruption of sequence demonstration
@@ -299,10 +308,14 @@ namespace cmaftei_Corsi_Span
                         label_game_score.Text = "SCORE/LEVEL : " + currentLevel.ToString();
                         ModeGenerate();
                         label_game_mode.Text = "Game Mode: " + gameMode.ToUpper();
+
+                        tracker.LogCorrectSequenceMessage(gameMode);
                     }
                     else
                     {
                         MessageBox.Show("Sorry! That is incorrect. Try Again!");
+
+                        tracker.LogIncorrectSequenceMessage(gameMode);
                     }
                     break;
                 case "normal":
@@ -313,10 +326,14 @@ namespace cmaftei_Corsi_Span
                         label_game_score.Text = "SCORE/LEVEL : " + currentLevel.ToString();
                         ModeGenerate();
                         label_game_mode.Text = "Game Mode: " + gameMode.ToUpper();
+
+                        tracker.LogCorrectSequenceMessage(gameMode);
                     }
                     else
                     {
                         MessageBox.Show("Sorry! That is incorrect. Try Again!");
+
+                        tracker.LogIncorrectSequenceMessage(gameMode);
                     }
                     break;
             }

@@ -51,6 +51,8 @@ namespace cmaftei_Corsi_Span
                 this.scoreHistory[2], this.scoreHistory[3], this.scoreHistory[4], this.scoreHistory[5], this.scoreHistory[6],
                 this.scoreHistory[7], this.scoreHistory[8], this.scoreHistory[9], this.dateOfBirth.Date, this.city.ToLower(),
                 this.state.ToLower(), this.county.ToLower(), this.diagnosis.ToLower());
+            this.trackerLog = AppDomain.CurrentDomain.BaseDirectory + @"playerInfo/trackerLogs/" + this.userName + ".txt";
+            File.CreateText(trackerLog);
         }
 
         //All Param Constructor
@@ -74,6 +76,7 @@ namespace cmaftei_Corsi_Span
                 this.scoreHistory[2], this.scoreHistory[3], this. scoreHistory[4], this.scoreHistory[5], this.scoreHistory[6],
                 this.scoreHistory[7], this.scoreHistory[8], this.scoreHistory[9], this.dateOfBirth.Date, this.city.ToLower(),
                 this.state.ToLower(), this.county.ToLower(), this.diagnosis.ToLower());
+            this.trackerLog = AppDomain.CurrentDomain.BaseDirectory + @"playerInfo/trackerLogs/" + this.userName + ".txt";
         }
 
         //getters
@@ -120,6 +123,11 @@ namespace cmaftei_Corsi_Span
         public List<int> GetScoreHistory()
         {
             return this.scoreHistory;
+        }
+
+        public string GetTrackerLog()
+        {
+            return this.trackerLog;
         }
 
         //setters
@@ -185,12 +193,7 @@ namespace cmaftei_Corsi_Span
         //Takes the user's current information and saves the information in the appropriate txt file.
         public void SaveUserData()
         {
-            this.saveInfo = String.Format("{0},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10},{11},{12},{13},{14},{15},{16},{17}",
-                this.userName.ToLower(), this.password, this.bestScore, this.scoreHistory[0], this.scoreHistory[1],
-                this.scoreHistory[2], this.scoreHistory[3], this.scoreHistory[4], this.scoreHistory[5], this.scoreHistory[6],
-                this.scoreHistory[7], this.scoreHistory[8], this.scoreHistory[9], this.dateOfBirth.Date, this.city.ToLower(),
-                this.state.ToLower(), this.county.ToLower(), this.diagnosis.ToLower());
-
+            ResetSaveInfo();
             //Find way to update appropriate info when scores are changed
             //Create logic in case files get deleted to create appropriate files
 

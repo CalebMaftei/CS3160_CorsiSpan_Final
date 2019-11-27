@@ -704,6 +704,7 @@
             this.button_admin_viewUserLogs.TabIndex = 17;
             this.button_admin_viewUserLogs.Text = "View User Logs";
             this.button_admin_viewUserLogs.UseVisualStyleBackColor = false;
+            this.button_admin_viewUserLogs.Click += new System.EventHandler(this.button_admin_viewUserLogs_Click);
             // 
             // button_admin_logOut
             // 
@@ -724,11 +725,11 @@
             this.richTextBox_admin_PresentationScreen.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.richTextBox_admin_PresentationScreen.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.richTextBox_admin_PresentationScreen.ForeColor = System.Drawing.Color.BurlyWood;
-            this.richTextBox_admin_PresentationScreen.Location = new System.Drawing.Point(406, 123);
+            this.richTextBox_admin_PresentationScreen.Location = new System.Drawing.Point(380, 123);
             this.richTextBox_admin_PresentationScreen.Name = "richTextBox_admin_PresentationScreen";
             this.richTextBox_admin_PresentationScreen.ReadOnly = true;
             this.richTextBox_admin_PresentationScreen.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
-            this.richTextBox_admin_PresentationScreen.Size = new System.Drawing.Size(849, 566);
+            this.richTextBox_admin_PresentationScreen.Size = new System.Drawing.Size(875, 566);
             this.richTextBox_admin_PresentationScreen.TabIndex = 19;
             this.richTextBox_admin_PresentationScreen.Text = "";
             // 

@@ -30,7 +30,7 @@ namespace cmaftei_Corsi_Span
         public void LogStartMessage()
         {
             string beginningMessage = String.Format(
-                "==================================== BEGINNING SESSION || DATE: {0} ===========================================", this.logDate);
+                "========== BEGINNING SESSION || DATE: {0} ==========\n", this.logDate);
             using (StreamWriter sw = File.AppendText(this.targetLogLocation))
             {
                 sw.WriteLine(xorEncryption.EncryptDecrypt(beginningMessage, 7919));
@@ -43,7 +43,7 @@ namespace cmaftei_Corsi_Span
         public void LogScoreBoardCheckMessage()
         {
             string message = String.Format(
-                "Time : {0}, User clicked the \"View ScoreBoard\" button. Ellapsed Time since last event: {1}",
+                "Time : {0}, User clicked the \"View ScoreBoard\" button. Ellapsed Time: {1}",
                 DateTime.Now.TimeOfDay, DateTime.Now.TimeOfDay - this.lastEventTrigger);
 
             this.lastEventTrigger = DateTime.Now.TimeOfDay;
@@ -58,7 +58,7 @@ namespace cmaftei_Corsi_Span
         public void LogUserHistoryCheckMessage()
         {
             string message = String.Format(
-                "Time : {0}, User clicked the \"View User History\" button. Ellapsed Time since last event: {1}",
+                "Time : {0}, User clicked the \"View User History\" button. Ellapsed Time: {1}",
                 DateTime.Now.TimeOfDay, DateTime.Now.TimeOfDay - this.lastEventTrigger);
 
             this.lastEventTrigger = DateTime.Now.TimeOfDay;
@@ -73,7 +73,7 @@ namespace cmaftei_Corsi_Span
         public void LogSequenceStartMessage()
         {
             string message = String.Format(
-                "Time : {0}, User has started a new sequence. Ellapsed Time since last event: {1}",
+                "Time : {0}, User has started a new sequence. Ellapsed Time: {1}",
                 DateTime.Now.TimeOfDay, DateTime.Now.TimeOfDay - this.lastEventTrigger);
 
             this.lastEventTrigger = DateTime.Now.TimeOfDay;
@@ -103,7 +103,7 @@ namespace cmaftei_Corsi_Span
         public void LogIncorrectSequenceMessage(string gameMode)
         {
             string message = String.Format(
-                "Time : {0}, Player DID NOT replicated sequence CORRECTLY in MODE: {1}. Ellapsed Time since last event: {2}",
+                "Time : {0}, Player DID NOT replicated sequence CORRECTLY in MODE: {1}. Ellapsed Time: {2}",
                 DateTime.Now.TimeOfDay, gameMode, DateTime.Now.TimeOfDay - this.lastEventTrigger);
 
             this.lastEventTrigger = DateTime.Now.TimeOfDay;
@@ -114,12 +114,14 @@ namespace cmaftei_Corsi_Span
             }
         }
 
+        //Log Message for the different block clicks
+
         //Log Message when User logs out... include total time spent during session.
         public void LogEndMessage()
         {
             this.totalSessionTime = DateTime.Now.TimeOfDay - this.totalSessionTime;
             string beginningMessage = String.Format(
-                "==================================== END SESSION || Total Time: {0} ===========================================", this.totalSessionTime);
+                "========== END SESSION || Total Time: {0} ==========", this.totalSessionTime);
             using (StreamWriter sw = File.AppendText(this.targetLogLocation))
             {
                 sw.WriteLine(xorEncryption.EncryptDecrypt(beginningMessage, 7919));

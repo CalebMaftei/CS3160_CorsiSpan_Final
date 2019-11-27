@@ -236,8 +236,8 @@ namespace cmaftei_Corsi_Span
             //For this to be correct with the database, we consistently need to update the DB as we make changes.
             //Might want to to make the update function a private function, and place it into each setter
 
-            using (var sr = new StreamReader(loadPlayerLocation))
-            using (var sw = new StreamWriter(tempFile))
+            using (StreamReader sr = new StreamReader(loadPlayerLocation))
+            using (StreamWriter sw = new StreamWriter(tempFile))
             {
                 string line;
                 while ((line = xorEncrypt.EncryptDecrypt(sr.ReadLine(),307)) != null)

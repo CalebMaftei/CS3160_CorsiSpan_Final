@@ -107,10 +107,10 @@ namespace cmaftei_Corsi_Span
                     textBox_passwordEntry.Text = "";
                     panel_Game.Visible = true;
                     panel_TitleScreen.Visible = false;
+                    tracker.LogStartMessage();
                 }
                 textBox_usernameEntry.Text = "";
                 textBox_passwordEntry.Text = "";
-                tracker.LogStartMessage();
             }
         }
 
@@ -556,6 +556,37 @@ namespace cmaftei_Corsi_Span
         {
             MessageBox.Show("Thank you!");
             panel_AdminPage.Visible = false;
+        }
+
+        private void button_admin_viewUserLogs_Click(object sender, EventArgs e)
+        {
+            if (comboBox_admin_UserDropDown.Text == "")
+            {
+                richTextBox_admin_PresentationScreen.Text = "PLEASE SELECT A USER FIRST.\n\n<===== Select The User Here";
+            }
+            else
+            {
+                foreach (Player p in players)
+                {
+                    if (p.GetUserName() == comboBox_admin_UserDropDown.Text)
+                    {
+                        activePlayer = p;
+                        break;
+                    }
+                }
+
+                richTextBox_admin_PresentationScreen.Font = new Font("Microsoft Sans Serif", 10);
+                richTextBox_admin_PresentationScreen.Text = "";
+
+                using (StreamReader sr = new StreamReader(activePlayer.GetTrackerLog()))
+                {
+                    string line;
+                    while((line = sr.ReadLine()) != null)
+                    {
+                        richTextBox_admin_PresentationScreen.Text += xorEncrypt.EncryptDecrypt(line,7919) + "\n\n";
+                    }
+                }
+            }
         }
     }
 }

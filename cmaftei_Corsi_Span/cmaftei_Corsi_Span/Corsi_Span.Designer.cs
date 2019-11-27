@@ -29,6 +29,9 @@
         private void InitializeComponent()
         {
             this.panel_TitleScreen = new System.Windows.Forms.Panel();
+            this.panel_AdminPage = new System.Windows.Forms.Panel();
+            this.panel_AdminPageBanner = new System.Windows.Forms.Panel();
+            this.label_adminPageTitle = new System.Windows.Forms.Label();
             this.button_signUp = new System.Windows.Forms.Button();
             this.button_login = new System.Windows.Forms.Button();
             this.textBox_passwordEntry = new System.Windows.Forms.TextBox();
@@ -74,16 +77,29 @@
             this.button_block3 = new System.Windows.Forms.Button();
             this.button_block2 = new System.Windows.Forms.Button();
             this.button_block1 = new System.Windows.Forms.Button();
+            this.comboBox_admin_UserDropDown = new System.Windows.Forms.ComboBox();
+            this.label_admin_userDropDown = new System.Windows.Forms.Label();
+            this.button_admin_viewUserInfo = new System.Windows.Forms.Button();
+            this.button_admin_viewUserScores = new System.Windows.Forms.Button();
+            this.button_admin_viewUserLogs = new System.Windows.Forms.Button();
+            this.button_admin_logOut = new System.Windows.Forms.Button();
+            this.richTextBox_admin_PresentationScreen = new System.Windows.Forms.RichTextBox();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.button_admin_viewScoreboard = new System.Windows.Forms.Button();
             this.panel_TitleScreen.SuspendLayout();
+            this.panel_AdminPage.SuspendLayout();
+            this.panel_AdminPageBanner.SuspendLayout();
             this.panel_SignUp.SuspendLayout();
             this.panel_Game.SuspendLayout();
             this.panel_gameHeader.SuspendLayout();
             this.panel_gameBoard.SuspendLayout();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel_TitleScreen
             // 
             this.panel_TitleScreen.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.panel_TitleScreen.Controls.Add(this.panel_AdminPage);
             this.panel_TitleScreen.Controls.Add(this.button_signUp);
             this.panel_TitleScreen.Controls.Add(this.button_login);
             this.panel_TitleScreen.Controls.Add(this.textBox_passwordEntry);
@@ -95,6 +111,42 @@
             this.panel_TitleScreen.Name = "panel_TitleScreen";
             this.panel_TitleScreen.Size = new System.Drawing.Size(1272, 711);
             this.panel_TitleScreen.TabIndex = 0;
+            // 
+            // panel_AdminPage
+            // 
+            this.panel_AdminPage.Controls.Add(this.richTextBox_admin_PresentationScreen);
+            this.panel_AdminPage.Controls.Add(this.button_admin_logOut);
+            this.panel_AdminPage.Controls.Add(this.button_admin_viewUserLogs);
+            this.panel_AdminPage.Controls.Add(this.button_admin_viewUserScores);
+            this.panel_AdminPage.Controls.Add(this.button_admin_viewUserInfo);
+            this.panel_AdminPage.Controls.Add(this.label_admin_userDropDown);
+            this.panel_AdminPage.Controls.Add(this.comboBox_admin_UserDropDown);
+            this.panel_AdminPage.Controls.Add(this.panel_AdminPageBanner);
+            this.panel_AdminPage.Controls.Add(this.panel1);
+            this.panel_AdminPage.Location = new System.Drawing.Point(-22, -13);
+            this.panel_AdminPage.Name = "panel_AdminPage";
+            this.panel_AdminPage.Size = new System.Drawing.Size(1303, 733);
+            this.panel_AdminPage.TabIndex = 7;
+            // 
+            // panel_AdminPageBanner
+            // 
+            this.panel_AdminPageBanner.BackColor = System.Drawing.Color.BurlyWood;
+            this.panel_AdminPageBanner.Controls.Add(this.label_adminPageTitle);
+            this.panel_AdminPageBanner.Location = new System.Drawing.Point(26, 16);
+            this.panel_AdminPageBanner.Name = "panel_AdminPageBanner";
+            this.panel_AdminPageBanner.Size = new System.Drawing.Size(1262, 81);
+            this.panel_AdminPageBanner.TabIndex = 0;
+            // 
+            // label_adminPageTitle
+            // 
+            this.label_adminPageTitle.AutoSize = true;
+            this.label_adminPageTitle.Font = new System.Drawing.Font("Modern No. 20", 26F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label_adminPageTitle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.label_adminPageTitle.Location = new System.Drawing.Point(450, 12);
+            this.label_adminPageTitle.Name = "label_adminPageTitle";
+            this.label_adminPageTitle.Size = new System.Drawing.Size(364, 53);
+            this.label_adminPageTitle.TabIndex = 0;
+            this.label_adminPageTitle.Text = "ADMIN PAGE";
             // 
             // button_signUp
             // 
@@ -590,6 +642,118 @@
             this.button_block1.TabIndex = 0;
             this.button_block1.UseVisualStyleBackColor = true;
             // 
+            // comboBox_admin_UserDropDown
+            // 
+            this.comboBox_admin_UserDropDown.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox_admin_UserDropDown.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.comboBox_admin_UserDropDown.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.comboBox_admin_UserDropDown.FormattingEnabled = true;
+            this.comboBox_admin_UserDropDown.Location = new System.Drawing.Point(38, 209);
+            this.comboBox_admin_UserDropDown.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.comboBox_admin_UserDropDown.Name = "comboBox_admin_UserDropDown";
+            this.comboBox_admin_UserDropDown.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.comboBox_admin_UserDropDown.Size = new System.Drawing.Size(304, 45);
+            this.comboBox_admin_UserDropDown.TabIndex = 13;
+            // 
+            // label_admin_userDropDown
+            // 
+            this.label_admin_userDropDown.BackColor = System.Drawing.Color.Black;
+            this.label_admin_userDropDown.Font = new System.Drawing.Font("Modern No. 20", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label_admin_userDropDown.ForeColor = System.Drawing.Color.BurlyWood;
+            this.label_admin_userDropDown.Location = new System.Drawing.Point(39, 114);
+            this.label_admin_userDropDown.Name = "label_admin_userDropDown";
+            this.label_admin_userDropDown.Size = new System.Drawing.Size(303, 91);
+            this.label_admin_userDropDown.TabIndex = 14;
+            this.label_admin_userDropDown.Text = "Choose A Player Then Click Any of the Following Buttons :\r\n\r\n:";
+            this.label_admin_userDropDown.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // button_admin_viewUserInfo
+            // 
+            this.button_admin_viewUserInfo.BackColor = System.Drawing.Color.BurlyWood;
+            this.button_admin_viewUserInfo.Font = new System.Drawing.Font("Modern No. 20", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button_admin_viewUserInfo.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.button_admin_viewUserInfo.Location = new System.Drawing.Point(38, 338);
+            this.button_admin_viewUserInfo.Name = "button_admin_viewUserInfo";
+            this.button_admin_viewUserInfo.Size = new System.Drawing.Size(304, 70);
+            this.button_admin_viewUserInfo.TabIndex = 15;
+            this.button_admin_viewUserInfo.Text = "View User Information";
+            this.button_admin_viewUserInfo.UseVisualStyleBackColor = false;
+            this.button_admin_viewUserInfo.Click += new System.EventHandler(this.button_admin_viewUserInfo_Click);
+            // 
+            // button_admin_viewUserScores
+            // 
+            this.button_admin_viewUserScores.BackColor = System.Drawing.Color.BurlyWood;
+            this.button_admin_viewUserScores.Font = new System.Drawing.Font("Modern No. 20", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button_admin_viewUserScores.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.button_admin_viewUserScores.Location = new System.Drawing.Point(38, 428);
+            this.button_admin_viewUserScores.Name = "button_admin_viewUserScores";
+            this.button_admin_viewUserScores.Size = new System.Drawing.Size(219, 70);
+            this.button_admin_viewUserScores.TabIndex = 16;
+            this.button_admin_viewUserScores.Text = "View User Scores";
+            this.button_admin_viewUserScores.UseVisualStyleBackColor = false;
+            this.button_admin_viewUserScores.Click += new System.EventHandler(this.button_admin_viewUserScores_Click);
+            // 
+            // button_admin_viewUserLogs
+            // 
+            this.button_admin_viewUserLogs.BackColor = System.Drawing.Color.BurlyWood;
+            this.button_admin_viewUserLogs.Font = new System.Drawing.Font("Modern No. 20", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button_admin_viewUserLogs.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.button_admin_viewUserLogs.Location = new System.Drawing.Point(38, 518);
+            this.button_admin_viewUserLogs.Name = "button_admin_viewUserLogs";
+            this.button_admin_viewUserLogs.Size = new System.Drawing.Size(304, 70);
+            this.button_admin_viewUserLogs.TabIndex = 17;
+            this.button_admin_viewUserLogs.Text = "View User Logs";
+            this.button_admin_viewUserLogs.UseVisualStyleBackColor = false;
+            // 
+            // button_admin_logOut
+            // 
+            this.button_admin_logOut.BackColor = System.Drawing.Color.BurlyWood;
+            this.button_admin_logOut.Font = new System.Drawing.Font("Modern No. 20", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button_admin_logOut.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.button_admin_logOut.Location = new System.Drawing.Point(38, 606);
+            this.button_admin_logOut.Name = "button_admin_logOut";
+            this.button_admin_logOut.Size = new System.Drawing.Size(304, 70);
+            this.button_admin_logOut.TabIndex = 18;
+            this.button_admin_logOut.Text = "Log Out";
+            this.button_admin_logOut.UseVisualStyleBackColor = false;
+            this.button_admin_logOut.Click += new System.EventHandler(this.button_admin_logOut_Click);
+            // 
+            // richTextBox_admin_PresentationScreen
+            // 
+            this.richTextBox_admin_PresentationScreen.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.richTextBox_admin_PresentationScreen.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.richTextBox_admin_PresentationScreen.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.richTextBox_admin_PresentationScreen.ForeColor = System.Drawing.Color.BurlyWood;
+            this.richTextBox_admin_PresentationScreen.Location = new System.Drawing.Point(406, 123);
+            this.richTextBox_admin_PresentationScreen.Name = "richTextBox_admin_PresentationScreen";
+            this.richTextBox_admin_PresentationScreen.ReadOnly = true;
+            this.richTextBox_admin_PresentationScreen.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
+            this.richTextBox_admin_PresentationScreen.Size = new System.Drawing.Size(849, 566);
+            this.richTextBox_admin_PresentationScreen.TabIndex = 19;
+            this.richTextBox_admin_PresentationScreen.Text = "";
+            // 
+            // panel1
+            // 
+            this.panel1.BackColor = System.Drawing.Color.Black;
+            this.panel1.Controls.Add(this.button_admin_viewScoreboard);
+            this.panel1.Location = new System.Drawing.Point(25, 97);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(335, 609);
+            this.panel1.TabIndex = 21;
+            // 
+            // button_admin_viewScoreboard
+            // 
+            this.button_admin_viewScoreboard.BackColor = System.Drawing.Color.BurlyWood;
+            this.button_admin_viewScoreboard.Font = new System.Drawing.Font("Modern No. 20", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button_admin_viewScoreboard.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.button_admin_viewScoreboard.Location = new System.Drawing.Point(246, 331);
+            this.button_admin_viewScoreboard.Name = "button_admin_viewScoreboard";
+            this.button_admin_viewScoreboard.Size = new System.Drawing.Size(71, 70);
+            this.button_admin_viewScoreboard.TabIndex = 22;
+            this.button_admin_viewScoreboard.Text = "SB";
+            this.button_admin_viewScoreboard.UseVisualStyleBackColor = false;
+            this.button_admin_viewScoreboard.Click += new System.EventHandler(this.button_admin_viewScoreboard_Click);
+            // 
             // Corsi_Span
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
@@ -602,12 +766,16 @@
             this.Text = "Corsi Span";
             this.panel_TitleScreen.ResumeLayout(false);
             this.panel_TitleScreen.PerformLayout();
+            this.panel_AdminPage.ResumeLayout(false);
+            this.panel_AdminPageBanner.ResumeLayout(false);
+            this.panel_AdminPageBanner.PerformLayout();
             this.panel_SignUp.ResumeLayout(false);
             this.panel_SignUp.PerformLayout();
             this.panel_Game.ResumeLayout(false);
             this.panel_gameHeader.ResumeLayout(false);
             this.panel_gameHeader.PerformLayout();
             this.panel_gameBoard.ResumeLayout(false);
+            this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -660,6 +828,18 @@
         private System.Windows.Forms.Button button_block3;
         private System.Windows.Forms.Button button_block2;
         private System.Windows.Forms.Button button_block1;
+        private System.Windows.Forms.Panel panel_AdminPage;
+        private System.Windows.Forms.Panel panel_AdminPageBanner;
+        private System.Windows.Forms.Label label_adminPageTitle;
+        private System.Windows.Forms.Label label_admin_userDropDown;
+        private System.Windows.Forms.ComboBox comboBox_admin_UserDropDown;
+        private System.Windows.Forms.Button button_admin_viewUserInfo;
+        private System.Windows.Forms.Button button_admin_logOut;
+        private System.Windows.Forms.Button button_admin_viewUserLogs;
+        private System.Windows.Forms.Button button_admin_viewUserScores;
+        private System.Windows.Forms.RichTextBox richTextBox_admin_PresentationScreen;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Button button_admin_viewScoreboard;
     }
 }
 

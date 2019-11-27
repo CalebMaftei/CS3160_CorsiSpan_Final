@@ -21,6 +21,7 @@ namespace cmaftei_Corsi_Span
         private PlayerHistoryManager phm;
         private Sequence sequence = new Sequence();
         private Player activePlayer;
+        private Admin admin;
         private int currentLevel = 2;
         private string gameMode = "normal";
         private XOR_Encryption xorEncrypt = new XOR_Encryption();
@@ -32,9 +33,10 @@ namespace cmaftei_Corsi_Span
             PanelSetup();
             LoadBlocksWithButtons();
             LoadPlayers();
+            LoadComboBox();
 
             //Gives buttons their respective event methods through delegated functions
-            for(int i = 0; i < blockButtons.Count(); i++)
+            for (int i = 0; i < blockButtons.Count(); i++)
             {
                 int x;
                 x = i;
@@ -45,6 +47,8 @@ namespace cmaftei_Corsi_Span
                 //When Mouse leaves block, it resets the highlight
                 blockButtons[x].MouseLeave += (o, e) => ColorChange(blockButtons[x], blocks[x].GetBlockColor(), false);
             }
+
+            admin = new Admin("admin", "password");
         }
 
         /// <summary>
@@ -69,7 +73,7 @@ namespace cmaftei_Corsi_Span
                     "please enter both your username and password.");
             }
             //second check: user credentials match what is in DB
-            else if(CheckForValidLogin(textBox_usernameEntry.Text, textBox_passwordEntry.Text))
+            else if(CheckForInValidLogin(textBox_usernameEntry.Text, textBox_passwordEntry.Text))
             {
                 MessageBox.Show("Invalid username/password.\n" +
                     "please enter a different username/password. Press the Sign Up\n" +
@@ -79,21 +83,31 @@ namespace cmaftei_Corsi_Span
             else
             {
                 //Based on the valid user entry, finds it in the list of players.
-                foreach (Player p in players)
+                if(textBox_usernameEntry.Text.ToLower() == admin.GetUsername())
                 {
-                    if (textBox_usernameEntry.Text.ToLower() == p.GetUserName())
-                    {
-                        activePlayer = p;
-                        break;
-                    }
+                    panel_AdminPage.Visible = true;
+                    //panel_TitleScreen.Visible = false;
                 }
-                label_game_currentPlayer.Text = "Current Player: " + activePlayer.GetUserName().ToUpper();
-                label_game_score.Text = "SCORE/LEVEL : " + currentLevel.ToString();
-                label_game_mode.Text = "Game Mode: " + gameMode.ToUpper();
+                else
+                {
+                    foreach (Player p in players)
+                    {
+                        if (textBox_usernameEntry.Text.ToLower() == p.GetUserName())
+                        {
+                            activePlayer = p;
+                            break;
+                        }
+                    }
+                    label_game_currentPlayer.Text = "Current Player: " + activePlayer.GetUserName().ToUpper();
+                    label_game_score.Text = "SCORE/LEVEL : " + currentLevel.ToString();
+                    label_game_mode.Text = "Game Mode: " + gameMode.ToUpper();
+                    textBox_usernameEntry.Text = "";
+                    textBox_passwordEntry.Text = "";
+                    panel_Game.Visible = true;
+                    panel_TitleScreen.Visible = false;
+                }
                 textBox_usernameEntry.Text = "";
                 textBox_passwordEntry.Text = "";
-                panel_Game.Visible = true;
-                panel_TitleScreen.Visible = false;
             }
         }
 
@@ -382,7 +396,7 @@ namespace cmaftei_Corsi_Span
             panel_TitleScreen.Visible = true;
             panel_SignUp.Visible = false;
             panel_Game.Visible = false;
-            //panel_Admin.Visible = false; //Create this
+            panel_AdminPage.Visible = false;
         }
 
         //Determines if the round is reverse or not.
@@ -412,8 +426,12 @@ namespace cmaftei_Corsi_Span
         }
 
         //false means a user already exists so no flag is needed, true means user is not found in DB, therefore flag is true.
-        private bool CheckForValidLogin(string user, string pass)
+        private bool CheckForInValidLogin(string user, string pass)
         {
+            if(user.ToLower() == admin.GetUsername() && pass == admin.GetPassword())
+            {
+                return false;
+            }
             using (StreamReader sr = File.OpenText(AppDomain.CurrentDomain.BaseDirectory +
                 @"playerInfo/loadPlayers.txt"))
             {
@@ -429,6 +447,98 @@ namespace cmaftei_Corsi_Span
                 }
             }
             return true; //if login doesn't match anything in DB, then failed attempt.
+        }
+
+        private void LoadComboBox()
+        {
+            foreach(Player p in players)
+            {
+                comboBox_admin_UserDropDown.Items.Add(p.GetUserName());
+            }
+        }
+
+        private void button_admin_viewUserInfo_Click(object sender, EventArgs e)
+        {
+            if(comboBox_admin_UserDropDown.Text == "")
+            {
+                richTextBox_admin_PresentationScreen.Text = "PLEASE SELECT A USER FIRST.\n\n<===== Select The User Here";
+            }
+            else
+            {
+                foreach (Player p in players)
+                {
+                    if (p.GetUserName() == comboBox_admin_UserDropDown.Text)
+                    {
+                        activePlayer = p;
+                        break;
+                    }
+                }
+
+                richTextBox_admin_PresentationScreen.Font = new Font("Microsoft Sans Serif", 12);
+                richTextBox_admin_PresentationScreen.Text = "";
+                richTextBox_admin_PresentationScreen.Text = String.Format(
+                    "USER INFORMATION:\n\n" +
+                    "Username : {0}\n\n" +
+                    "Password : {1}\n\n" +
+                    "Date Of Birth : {2}\n\n" +
+                    "City: {3}\n\n" +
+                    "State: {4}\n\n" +
+                    "County: {5}\n\n" +
+                    "Diagnosis: {6}\n\n"
+                    , activePlayer.GetUserName(), activePlayer.GetPassword(), activePlayer.GetDOB().ToString()
+                    , activePlayer.GetCity(), activePlayer.GetState(), activePlayer.GetCounty()
+                    , activePlayer.GetDiagnosis());
+            }
+            
+        }
+
+        private void button_admin_viewUserScores_Click(object sender, EventArgs e)
+        {
+            if (comboBox_admin_UserDropDown.Text == "")
+            {
+                richTextBox_admin_PresentationScreen.Text = "PLEASE SELECT A USER FIRST.\n\n<===== Select The User Here";
+            }
+            else
+            {
+                foreach (Player p in players)
+                {
+                    if (p.GetUserName() == comboBox_admin_UserDropDown.Text)
+                    {
+                        activePlayer = p;
+                        break;
+                    }
+                }
+
+                richTextBox_admin_PresentationScreen.Font = new Font("Microsoft Sans Serif", 12);
+                richTextBox_admin_PresentationScreen.Text = "";
+                richTextBox_admin_PresentationScreen.Text = String.Format(
+                    "USER SCORE HISTORY:\n\n" +
+                    "Best Score : {0}\n\n" +
+                    "Top 10 Scores ( 1 being highest) :\n\n"
+                    , activePlayer.GetBestScore());
+
+                for(int i = 0; i < 10; i++)
+                {
+                    richTextBox_admin_PresentationScreen.Text += String.Format(
+                        "{0} score:\t{1}\n", i+1, activePlayer.GetScoreHistory()[i]);
+                }
+            }
+        }
+
+        private void button_admin_viewScoreboard_Click(object sender, EventArgs e)
+        {
+            scoreBoard.LoadScores(players);
+
+            richTextBox_admin_PresentationScreen.Font = new Font("Microsoft Sans Serif", 25);
+            richTextBox_admin_PresentationScreen.Text = "";
+            richTextBox_admin_PresentationScreen.Text = "SCOREBOARD : \n\n";
+            richTextBox_admin_PresentationScreen.Text += scoreBoard.ToString();
+        }
+
+        private void button_admin_logOut_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Thank you!");
+            panel_AdminPage.Visible = false;
         }
     }
 }

@@ -87,6 +87,7 @@ namespace cmaftei_Corsi_Span
                 if(textBox_usernameEntry.Text.ToLower() == admin.GetUsername())
                 {
                     panel_AdminPage.Visible = true;
+                    LoadComboBox();
                     //panel_TitleScreen.Visible = false;
                 }
                 else
@@ -485,7 +486,8 @@ namespace cmaftei_Corsi_Span
 
         private void LoadComboBox()
         {
-            foreach(Player p in players)
+            comboBox_admin_UserDropDown.Items.Clear();
+            foreach (Player p in players)
             {
                 comboBox_admin_UserDropDown.Items.Add(p.GetUserName());
             }
@@ -572,6 +574,7 @@ namespace cmaftei_Corsi_Span
         private void button_admin_logOut_Click(object sender, EventArgs e)
         {
             MessageBox.Show("Thank you!");
+            richTextBox_admin_PresentationScreen.Text = String.Empty;
             panel_AdminPage.Visible = false;
         }
 

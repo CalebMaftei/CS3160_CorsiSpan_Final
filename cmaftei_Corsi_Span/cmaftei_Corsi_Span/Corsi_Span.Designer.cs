@@ -765,13 +765,13 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1252, 674);
+            this.ClientSize = new System.Drawing.Size(1252, 679);
             this.Controls.Add(this.panel_TitleScreen);
             this.Controls.Add(this.panel_SignUp);
             this.Controls.Add(this.panel_Game);
             this.MaximizeBox = false;
-            this.MaximumSize = new System.Drawing.Size(1274, 730);
-            this.MinimumSize = new System.Drawing.Size(1274, 720);
+            this.MaximumSize = new System.Drawing.Size(1274, 735);
+            this.MinimumSize = new System.Drawing.Size(1274, 735);
             this.Name = "Corsi_Span";
             this.Text = "Corsi Span";
             this.panel_TitleScreen.ResumeLayout(false);

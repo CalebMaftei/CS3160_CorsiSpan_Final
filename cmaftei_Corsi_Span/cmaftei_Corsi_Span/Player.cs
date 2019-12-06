@@ -53,7 +53,7 @@ namespace cmaftei_Corsi_Span
                 this.scoreHistory[7], this.scoreHistory[8], this.scoreHistory[9], this.dateOfBirth.Date, this.city.ToLower(),
                 this.state.ToLower(), this.county.ToLower(), this.diagnosis.ToLower());
             this.trackerLog = AppDomain.CurrentDomain.BaseDirectory + @"playerInfo/trackerLogs/" + this.userName + ".txt";
-            File.CreateText(trackerLog);
+            using (File.CreateText(trackerLog));
         }
 
         //All Param Constructor

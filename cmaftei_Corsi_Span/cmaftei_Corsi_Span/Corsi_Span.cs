@@ -62,6 +62,8 @@ namespace cmaftei_Corsi_Span
         {
             panel_TitleScreen.Visible = false;
             panel_SignUp.Visible = true;
+            textBox_passwordEntry.Text = "";
+            textBox_usernameEntry.Text = "";
         }
          
         //Gateway to game (NEEDS VALIDATION OR USER AND PASSWORD)
@@ -72,6 +74,8 @@ namespace cmaftei_Corsi_Span
             {
                 MessageBox.Show("You are missing either your username or password.\n" +
                     "please enter both your username and password.");
+                textBox_passwordEntry.Text = "";
+                textBox_usernameEntry.Text = "";
             }
             //second check: user credentials match what is in DB
             else if(CheckForInValidLogin(textBox_usernameEntry.Text, textBox_passwordEntry.Text))
@@ -79,6 +83,8 @@ namespace cmaftei_Corsi_Span
                 MessageBox.Show("Invalid username/password.\n" +
                     "please enter a different username/password. Press the Sign Up\n" +
                     "Button to create a new account.");
+                textBox_passwordEntry.Text = "";
+                textBox_usernameEntry.Text = "";
             }
             //Passed! Prepare Game State
             else
@@ -255,7 +261,7 @@ namespace cmaftei_Corsi_Span
         {
             tracker.LogSequenceStartMessage();
 
-            MessageBox.Show("Starting the round! REMINDER: The Sequence is the cubes that go dark red! " +
+            MessageBox.Show("Starting the round! REMINDER: The Sequence is the cubes that go WHITE! " +
                 "Click them at the end of the sequnce!");
             //Disable all buttons to prevent disruption of sequence demonstration
             foreach(Button b in blockButtons)

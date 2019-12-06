@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace cmaftei_Corsi_Span
 {
@@ -197,13 +198,20 @@ namespace cmaftei_Corsi_Span
             //Find way to update appropriate info when scores are changed
             //Create logic in case files get deleted to create appropriate files
 
-            using (StreamWriter sw = File.AppendText(loadInfoDestination))
+            try
             {
-                sw.WriteLine(xorEncrypt.EncryptDecrypt(this.saveInfo, 307));
+                using (StreamWriter sw = File.AppendText(loadInfoDestination))
+                {
+                    sw.WriteLine(xorEncrypt.EncryptDecrypt(this.saveInfo, 307));
+                }
+            }
+            catch(FileNotFoundException)
+            {
+                MessageBox.Show("User was not saved into DB, as DB could not be found.");
             }
         }
 
-        //NEEDS TO BE TESTED : Can't be tested until Admin page is made.
+        //NOT USED AS ADMIN FUNCTIONALITY HAS NOT BEEN GIVEN THIS PERMISSION YET.
         public void DeletePlayer()
         {
             string assignmentsLocation = AppDomain.CurrentDomain.BaseDirectory + @"playerInfo/loadPlayers.txt";
@@ -236,54 +244,69 @@ namespace cmaftei_Corsi_Span
             //For this to be correct with the database, we consistently need to update the DB as we make changes.
             //Might want to to make the update function a private function, and place it into each setter
 
-            using (StreamReader sr = new StreamReader(loadPlayerLocation))
-            using (StreamWriter sw = new StreamWriter(tempFile))
+            try
             {
-                string line;
-                while ((line = xorEncrypt.EncryptDecrypt(sr.ReadLine(),307)) != null)
+                using (StreamReader sr = new StreamReader(loadPlayerLocation))
+                using (StreamWriter sw = new StreamWriter(tempFile))
                 {
-                    if (line != this.saveInfo)
+                    string line;
+                    while ((line = xorEncrypt.EncryptDecrypt(sr.ReadLine(), 307)) != null)
                     {
-                        //If line isn't the one that needs to be updated, then no revision needed
-                        sw.WriteLine(xorEncrypt.EncryptDecrypt(line,307));
-                    }
-                    else
-                    {
-                        //If line is the one that needs to be updated, then create revision
-                        ResetSaveInfo();
-                        sw.WriteLine(xorEncrypt.EncryptDecrypt(this.saveInfo, 307));
+                        if (line != this.saveInfo)
+                        {
+                            //If line isn't the one that needs to be updated, then no revision needed
+                            sw.WriteLine(xorEncrypt.EncryptDecrypt(line, 307));
+                        }
+                        else
+                        {
+                            //If line is the one that needs to be updated, then create revision
+                            ResetSaveInfo();
+                            sw.WriteLine(xorEncrypt.EncryptDecrypt(this.saveInfo, 307));
+                        }
                     }
                 }
+                //Removes content in Score Location
+                File.Delete(loadPlayerLocation);
+                //Transfers temp content into Score Location
+                File.Copy(tempFile, loadPlayerLocation);
+                //Removes content in tempFile
+                File.WriteAllText(tempFile, string.Empty);
             }
-            //Removes content in Score Location
-            File.Delete(loadPlayerLocation);
-            //Transfers temp content into Score Location
-            File.Copy(tempFile, loadPlayerLocation);
-            //Removes content in tempFile
-            File.WriteAllText(tempFile, string.Empty);
+            catch (FileNotFoundException)
+            {
+                MessageBox.Show("DB could not be found. Values will not persist.");
+            }
         }
 
         //MOVE TO UI CLASS. MIGHT MAKE OWN CLASS. Checks if user already exists. If so, goes back to UI to send message 
         //saying can't add existing user.
         public bool CheckForRedundnantUser()
         {
-            using (StreamReader sr = File.OpenText(loadInfoDestination))
+            try
             {
-                string line;
-                string[] playerInfo;
-
-                while ((line = xorEncrypt.EncryptDecrypt(sr.ReadLine(),307)) != null)
+                using (StreamReader sr = File.OpenText(loadInfoDestination))
                 {
-                    playerInfo = line.Split(',');
+                    string line;
+                    string[] playerInfo;
 
-                    //Need username to be checked.
-                    if (playerInfo[0] == this.userName)
+                    while ((line = xorEncrypt.EncryptDecrypt(sr.ReadLine(), 307)) != null)
                     {
-                        return true;
+                        playerInfo = line.Split(',');
+
+                        //Need username to be checked.
+                        if (playerInfo[0] == this.userName)
+                        {
+                            return true;
+                        }
                     }
                 }
+                return false;
             }
-            return false;
+            catch
+            {
+                MessageBox.Show("No DB could be found. Allow Player to go through.\n NOTE: Any progress made will not be saved.");
+                return true;
+            }
         }
     }
 }

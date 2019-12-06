@@ -31,12 +31,19 @@ namespace cmaftei_Corsi_Span
         {
             string beginningMessage = String.Format(
                 "========== BEGINNING SESSION || DATE: {0} ==========\n", this.logDate);
-            using (StreamWriter sw = File.AppendText(this.targetLogLocation))
+            try
             {
-                sw.WriteLine(xorEncryption.EncryptDecrypt(beginningMessage, 7919));
+                using (StreamWriter sw = File.AppendText(this.targetLogLocation))
+                {
+                    sw.WriteLine(xorEncryption.EncryptDecrypt(beginningMessage, 7919));
+                }
+                this.lastEventTrigger = DateTime.Now.TimeOfDay;
+                this.totalSessionTime = DateTime.Now.TimeOfDay;
             }
-            this.lastEventTrigger = DateTime.Now.TimeOfDay;
-            this.totalSessionTime = DateTime.Now.TimeOfDay;
+            catch(Exception e)
+            {
+                //No logs will be made for the temp account.
+            }
         }
 
         //Log Message for when scoreboard was clicked
@@ -48,9 +55,16 @@ namespace cmaftei_Corsi_Span
 
             this.lastEventTrigger = DateTime.Now.TimeOfDay;
 
-            using (StreamWriter sw = File.AppendText(this.targetLogLocation))
+            try
             {
-                sw.WriteLine(xorEncryption.EncryptDecrypt(message, 7919));
+                using (StreamWriter sw = File.AppendText(this.targetLogLocation))
+                {
+                    sw.WriteLine(xorEncryption.EncryptDecrypt(message, 7919));
+                }
+            }
+            catch
+            {
+                //Nothing will log.
             }
         }
 
@@ -63,10 +77,18 @@ namespace cmaftei_Corsi_Span
 
             this.lastEventTrigger = DateTime.Now.TimeOfDay;
 
-            using (StreamWriter sw = File.AppendText(this.targetLogLocation))
+            try
             {
-                sw.WriteLine(xorEncryption.EncryptDecrypt(message, 7919));
+                using (StreamWriter sw = File.AppendText(this.targetLogLocation))
+                {
+                    sw.WriteLine(xorEncryption.EncryptDecrypt(message, 7919));
+                }
             }
+            catch
+            {
+                //Nothing will log.
+            }
+            
         }
 
         //Log Message for when user starts a new sequence
@@ -78,9 +100,16 @@ namespace cmaftei_Corsi_Span
 
             this.lastEventTrigger = DateTime.Now.TimeOfDay;
 
-            using (StreamWriter sw = File.AppendText(this.targetLogLocation))
+            try
             {
-                sw.WriteLine(xorEncryption.EncryptDecrypt(message, 7919));
+                using (StreamWriter sw = File.AppendText(this.targetLogLocation))
+                {
+                    sw.WriteLine(xorEncryption.EncryptDecrypt(message, 7919));
+                }
+            }
+            catch
+            {
+                //nothing will log.
             }
         }
 
@@ -92,11 +121,18 @@ namespace cmaftei_Corsi_Span
                 DateTime.Now.TimeOfDay, gameMode, DateTime.Now.TimeOfDay - this.lastEventTrigger);
 
             this.lastEventTrigger = DateTime.Now.TimeOfDay;
-
-            using (StreamWriter sw = File.AppendText(this.targetLogLocation))
+            try
             {
-                sw.WriteLine(xorEncryption.EncryptDecrypt(message, 7919));
+                using (StreamWriter sw = File.AppendText(this.targetLogLocation))
+                {
+                    sw.WriteLine(xorEncryption.EncryptDecrypt(message, 7919));
+                }
             }
+            catch
+            {
+                //Nothing will log.
+            }
+            
         }
 
         //Log Message when User does not get sequence correct... include gameMode
@@ -108,9 +144,16 @@ namespace cmaftei_Corsi_Span
 
             this.lastEventTrigger = DateTime.Now.TimeOfDay;
 
-            using (StreamWriter sw = File.AppendText(this.targetLogLocation))
+            try
             {
-                sw.WriteLine(xorEncryption.EncryptDecrypt(message, 7919));
+                using (StreamWriter sw = File.AppendText(this.targetLogLocation))
+                {
+                    sw.WriteLine(xorEncryption.EncryptDecrypt(message, 7919));
+                }
+            }
+            catch
+            {
+                //Nothing will log.
             }
         }
 
@@ -122,11 +165,19 @@ namespace cmaftei_Corsi_Span
             this.totalSessionTime = DateTime.Now.TimeOfDay - this.totalSessionTime;
             string beginningMessage = String.Format(
                 "========== END SESSION || Total Time: {0} ==========", this.totalSessionTime);
-            using (StreamWriter sw = File.AppendText(this.targetLogLocation))
+
+            try
             {
-                sw.WriteLine(xorEncryption.EncryptDecrypt(beginningMessage, 7919));
+                using (StreamWriter sw = File.AppendText(this.targetLogLocation))
+                {
+                    sw.WriteLine(xorEncryption.EncryptDecrypt(beginningMessage, 7919));
+                }
+                this.lastEventTrigger = DateTime.Now.TimeOfDay;
             }
-            this.lastEventTrigger = DateTime.Now.TimeOfDay;
+            catch
+            {
+                //Nothing will log.
+            }
         }
     }
 }

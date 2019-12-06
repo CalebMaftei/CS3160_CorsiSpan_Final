@@ -383,27 +383,34 @@ namespace cmaftei_Corsi_Span
         //On opening program, pull from db and create all players.
         private void LoadPlayers()
         {
-            using (StreamReader sr = File.OpenText(AppDomain.CurrentDomain.BaseDirectory +
-                @"playerInfo/loadPlayers.txt"))
+            try
             {
-                string line;
-                string[] info;
-                //while ((line = xorEncrypt.EncryptDecrypt(sr.ReadLine(),307)) != null)
-                while ((line = xorEncrypt.EncryptDecrypt(sr.ReadLine(),307)) != null)
+                using (StreamReader sr = File.OpenText(AppDomain.CurrentDomain.BaseDirectory +
+                @"playerInfo/loadPlayers.txt"))
                 {
-                    info = line.Split(',');
+                    string line;
+                    string[] info;
+                    //while ((line = xorEncrypt.EncryptDecrypt(sr.ReadLine(),307)) != null)
+                    while ((line = xorEncrypt.EncryptDecrypt(sr.ReadLine(), 307)) != null)
+                    {
+                        info = line.Split(',');
 
-                    Player player = new Player(
-                        info[0], info[1], Int32.Parse(info[2])
-                        , new List<int> { Int32.Parse(info[3]), Int32.Parse(info[4]), Int32.Parse(info[5])
+                        Player player = new Player(
+                            info[0], info[1], Int32.Parse(info[2])
+                            , new List<int> { Int32.Parse(info[3]), Int32.Parse(info[4]), Int32.Parse(info[5])
                         , Int32.Parse(info[6]), Int32.Parse(info[7]), Int32.Parse(info[8]), Int32.Parse(info[9])
                         , Int32.Parse(info[10]), Int32.Parse(info[11]), Int32.Parse(info[12])}
-                        , DateTime.Parse(info[13]),
-                        info[14], info[15], info[16], info[17]);
+                            , DateTime.Parse(info[13]),
+                            info[14], info[15], info[16], info[17]);
 
-                    player.ResetSaveInfo();
-                    players.Add(player);
+                        player.ResetSaveInfo();
+                        players.Add(player);
+                    }
                 }
+            }
+            catch(FileNotFoundException e)
+            {
+                //MessageBox.Show(e.Message);
             }
         }
 
@@ -449,21 +456,31 @@ namespace cmaftei_Corsi_Span
             {
                 return false;
             }
-            using (StreamReader sr = File.OpenText(AppDomain.CurrentDomain.BaseDirectory +
-                @"playerInfo/loadPlayers.txt"))
+            try
             {
-                string line;
-                string[] info;
-                while ((line = xorEncrypt.EncryptDecrypt(sr.ReadLine(),307)) != null)
+                using (StreamReader sr = File.OpenText(AppDomain.CurrentDomain.BaseDirectory +
+                @"playerInfo/loadPlayers.txt"))
                 {
-                    info = line.Split(',');
-                    if (info[0] == user.ToLower() && info[1] == pass)
+                    string line;
+                    string[] info;
+                    while ((line = xorEncrypt.EncryptDecrypt(sr.ReadLine(), 307)) != null)
                     {
-                        return false;
+                        info = line.Split(',');
+                        if (info[0] == user.ToLower() && info[1] == pass)
+                        {
+                            return false;
+                        }
                     }
                 }
+                return true; //if login doesn't match anything in DB, then failed attempt.
             }
-            return true; //if login doesn't match anything in DB, then failed attempt.
+            catch(FileNotFoundException e)
+            {
+                MessageBox.Show(e.Message + "\n\nDB could not be found. Giving Temporary Player Account.");
+                activePlayer = new Player("temp", "temp", 0, DateTime.Now, "City", "State", "County", "N/A");
+                tracker = new Tracker(activePlayer);
+                return false;
+            }            
         }
 
         private void LoadComboBox()
